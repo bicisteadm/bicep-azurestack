@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "389069344157124338"
+      "templateHash": "1254720832083356382"
     }
   },
   "parameters": {
@@ -40,7 +40,7 @@
   "outputs": {
     "udrId": {
       "type": "string",
-      "value": "[resourceId('Microsoft.Network/routeTables', parameters('udrName'))]"
+      "value": "[resourceInfo('udr').id]"
     }
   }
 }

@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "11671638506161273435"
+      "templateHash": "3443810894279370286"
     }
   },
   "parameters": {
@@ -58,7 +58,7 @@
         "ProjectName": "[parameters('appName')]"
       },
       "properties": {
-        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
+        "serverFarmId": "[resourceInfo('appServicePlan').id]",
         "httpsOnly": true,
         "siteConfig": {
           "minTlsVersion": "1.2"
@@ -71,7 +71,7 @@
     "appServiceLogging": {
       "type": "Microsoft.Web/sites/config",
       "apiVersion": "2020-06-01",
-      "name": "[format('{0}/logs', variables('webSiteName'))]",
+      "name": "[format('{0}/logs', resourceInfo('appService').name)]",
       "properties": {
         "applicationLogs": {
           "fileSystem": {
@@ -99,7 +99,7 @@
   "outputs": {
     "appServiceName": {
       "type": "string",
-      "value": "[variables('webSiteName')]"
+      "value": "[resourceInfo('appService').name]"
     }
   }
 }

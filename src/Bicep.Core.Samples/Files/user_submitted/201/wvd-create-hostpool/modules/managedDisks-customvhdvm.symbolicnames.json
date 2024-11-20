@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "12060947437775684780"
+      "templateHash": "12040305095321923263"
     }
   },
   "parameters": {
@@ -364,7 +364,7 @@
             }
           },
           "imageReference": {
-            "id": "[resourceId('Microsoft.Compute/images', variables('imageName_var'))]"
+            "id": "[resourceInfo('imageName').id]"
           }
         },
         "networkProfile": {

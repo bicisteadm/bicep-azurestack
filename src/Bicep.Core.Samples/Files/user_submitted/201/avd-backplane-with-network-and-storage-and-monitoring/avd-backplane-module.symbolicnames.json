@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "16846926962182872904"
+      "templateHash": "9033134689575251829"
     }
   },
   "parameters": {
@@ -86,7 +86,7 @@
       "properties": {
         "friendlyName": "[parameters('appgroupNameFriendlyName')]",
         "applicationGroupType": "[parameters('applicationgrouptype')]",
-        "hostPoolArmPath": "[resourceId('Microsoft.DesktopVirtualization/hostPools', parameters('hostpoolName'))]"
+        "hostPoolArmPath": "[resourceInfo('hp').id]"
       },
       "dependsOn": [
         "hp"
@@ -100,7 +100,7 @@
       "properties": {
         "friendlyName": "[parameters('workspaceNameFriendlyName')]",
         "applicationGroupReferences": [
-          "[resourceId('Microsoft.DesktopVirtualization/applicationGroups', parameters('appgroupName'))]"
+          "[resourceInfo('ag').id]"
         ]
       },
       "dependsOn": [
@@ -128,10 +128,10 @@
             "value": "[parameters('logAnalyticsWorkspaceSku')]"
           },
           "hostpoolName": {
-            "value": "[parameters('hostpoolName')]"
+            "value": "[resourceInfo('hp').name]"
           },
           "workspaceName": {
-            "value": "[parameters('workspaceName')]"
+            "value": "[resourceInfo('ws').name]"
           },
           "avdBackplaneResourceGroup": {
             "value": "[parameters('avdBackplaneResourceGroup')]"
@@ -145,7 +145,7 @@
             "_generator": {
               "name": "bicep",
               "version": "dev",
-              "templateHash": "9356800282323307322"
+              "templateHash": "910448251247236040"
             }
           },
           "parameters": {
@@ -194,7 +194,7 @@
                 "mode": "Incremental",
                 "parameters": {
                   "logAnalyticsWorkspaceID": {
-                    "value": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('logAnalyticsWorkspaceName'))]"
+                    "value": "[resourceInfo('avdla').id]"
                   },
                   "hostpoolName": {
                     "value": "[parameters('hostpoolName')]"

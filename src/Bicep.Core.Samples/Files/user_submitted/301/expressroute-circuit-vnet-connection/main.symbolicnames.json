@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "1140584230823474064"
+      "templateHash": "12391813346558466347"
     }
   },
   "parameters": {
@@ -60,7 +60,7 @@
     "subnet": {
       "type": "Microsoft.Network/virtualNetworks/subnets",
       "apiVersion": "2020-06-01",
-      "name": "[format('{0}/{1}', parameters('virtualNetworkName'), parameters('subnetName'))]",
+      "name": "[format('{0}/{1}', resourceInfo('virtualNetwork').name, parameters('subnetName'))]",
       "properties": {
         "addressPrefix": "[parameters('subnetPrefix')]",
         "networkSecurityGroup": {
@@ -91,7 +91,7 @@
     "gatewaySubnet": {
       "type": "Microsoft.Network/virtualNetworks/subnets",
       "apiVersion": "2020-06-01",
-      "name": "[format('{0}/GatewaySubnet', parameters('virtualNetworkName'))]",
+      "name": "[format('{0}/GatewaySubnet', resourceInfo('virtualNetwork').name)]",
       "properties": {
         "addressPrefix": "[parameters('gatewaySubnetPrefix')]",
         "networkSecurityGroup": {
@@ -140,10 +140,10 @@
             "properties": {
               "privateIPAllocationMethod": "Dynamic",
               "subnet": {
-                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', split(format('{0}/GatewaySubnet', parameters('virtualNetworkName')), '/')[0], split(format('{0}/GatewaySubnet', parameters('virtualNetworkName')), '/')[1])]"
+                "id": "[resourceInfo('gatewaySubnet').id]"
               },
               "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('gatewayPublicIPName'))]"
+                "id": "[resourceInfo('publicIP').id]"
               }
             }
           }
@@ -162,7 +162,7 @@
       "location": "[parameters('location')]",
       "properties": {
         "virtualNetworkGateway1": {
-          "id": "[resourceId('Microsoft.Network/virtualNetworkGateways', parameters('gatewayName'))]",
+          "id": "[resourceInfo('virtualNetworkGateway').id]",
           "properties": {}
         },
         "peer": {

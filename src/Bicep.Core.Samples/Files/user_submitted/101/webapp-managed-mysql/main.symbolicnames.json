@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "1724116173766882539"
+      "templateHash": "2645256693573686915"
     }
   },
   "parameters": {
@@ -137,7 +137,7 @@
       "name": "[parameters('siteName')]",
       "location": "[parameters('location')]",
       "properties": {
-        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]"
+        "serverFarmId": "[resourceInfo('hostingPlan').id]"
       },
       "dependsOn": [
         "hostingPlan"

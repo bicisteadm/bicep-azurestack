@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "14926570491909294535"
+      "templateHash": "9794766894562802350"
     }
   },
   "parameters": {
@@ -37,11 +37,11 @@
   "outputs": {
     "name": {
       "type": "string",
-      "value": "[format('{0}-rg', parameters('prefix'))]"
+      "value": "[resourceInfo('vnet').name]"
     },
     "id": {
       "type": "string",
-      "value": "[resourceId('Microsoft.Network/virtualNetworks', format('{0}-rg', parameters('prefix')))]"
+      "value": "[resourceInfo('vnet').id]"
     }
   }
 }

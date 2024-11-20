@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "11802361303647214158"
+      "templateHash": "6844803306554194543"
     }
   },
   "parameters": {
@@ -155,11 +155,6 @@
       }
     }
   },
-  "variables": {
-    "storageAccountId": "[if(parameters('createNewStorageAccount'), resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')), resourceId(parameters('storageAccountResourceGroupName'), 'Microsoft.Storage/storageAccounts/', parameters('storageAccountName')))]",
-    "subnetId": "[if(parameters('createNewVnet'), resourceId('Microsoft.Network/virtualNetworks/subnets', split(format('{0}/{1}', parameters('vnetName'), parameters('subnetName')), '/')[0], split(format('{0}/{1}', parameters('vnetName'), parameters('subnetName')), '/')[1]), resourceId(parameters('vnetResourceGroupName'), 'Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnetName')))]",
-    "publicIPId": "[if(parameters('createNewPublicIP'), resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPName')), resourceId(parameters('publicIPResourceGroupName'), 'Microsoft.Network/publicIPAddresses', parameters('publicIPName')))]"
-  },
   "resources": {
     "storageAccount": {
       "condition": "[parameters('createNewStorageAccount')]",
@@ -225,11 +220,11 @@
       "condition": "[parameters('createNewVnet')]",
       "type": "Microsoft.Network/virtualNetworks/subnets",
       "apiVersion": "2017-09-01",
-      "name": "[format('{0}/{1}', parameters('vnetName'), parameters('subnetName'))]",
+      "name": "[format('{0}/{1}', resourceInfo('vnet').name, parameters('subnetName'))]",
       "properties": {
         "addressPrefix": "[parameters('subnetPrefix')]",
         "networkSecurityGroup": {
-          "id": "[resourceId('Microsoft.Network/networkSecurityGroups', 'default-NSG')]"
+          "id": "[resourceInfo('nsg').id]"
         }
       },
       "dependsOn": [
@@ -249,10 +244,10 @@
             "properties": {
               "privateIPAllocationMethod": "Dynamic",
               "subnet": {
-                "id": "[variables('subnetId')]"
+                "id": "[if(parameters('createNewVnet'), resourceInfo('subnet').id, resourceId(parameters('vnetResourceGroupName'), 'Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnetName')))]"
               },
               "publicIPAddress": {
-                "id": "[variables('publicIPId')]"
+                "id": "[if(parameters('createNewPublicIP'), resourceInfo('publicIP').id, resourceId(parameters('publicIPResourceGroupName'), 'Microsoft.Network/publicIPAddresses', parameters('publicIPName')))]"
               }
             }
           }
@@ -293,14 +288,14 @@
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces', format('{0}-nic', parameters('vmName')))]"
+              "id": "[resourceInfo('nic').id]"
             }
           ]
         },
         "diagnosticsProfile": {
           "bootDiagnostics": {
             "enabled": true,
-            "storageUri": "[reference(variables('storageAccountId')).primaryEndpoints.blob]"
+            "storageUri": "[reference(if(parameters('createNewStorageAccount'), resourceInfo('storageAccount').id, resourceId(parameters('storageAccountResourceGroupName'), 'Microsoft.Storage/storageAccounts/', parameters('storageAccountName')))).primaryEndpoints.blob]"
           }
         }
       },

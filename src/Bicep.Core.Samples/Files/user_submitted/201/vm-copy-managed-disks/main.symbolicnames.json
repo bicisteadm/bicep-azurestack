@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "4747951857649683862"
+      "templateHash": "7027698770641032937"
     }
   },
   "parameters": {
@@ -122,7 +122,7 @@
       "properties": {
         "addressPrefix": "[variables('myVNETSubnet1Prefix')]",
         "networkSecurityGroup": {
-          "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]"
+          "id": "[resourceInfo('networkSecurityGroup').id]"
         }
       },
       "dependsOn": [
@@ -197,7 +197,7 @@
           ]
         },
         "availabilitySet": {
-          "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySetName'))]"
+          "id": "[resourceInfo('availabilitySet').id]"
         },
         "diagnosticsProfile": {
           "bootDiagnostics": {
@@ -230,7 +230,7 @@
                 "id": "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}{1}-PIP1', parameters('virtualMachineNamePrefix'), add(range(0, parameters('virtualMachineCount'))[copyIndex()], 1)))]"
               },
               "subnet": {
-                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', split(format('{0}/{1}', variables('myVNETName'), variables('myVNETSubnet1Name')), '/')[0], split(format('{0}/{1}', variables('myVNETName'), variables('myVNETSubnet1Name')), '/')[1])]"
+                "id": "[resourceInfo('subNet').id]"
               }
             }
           }

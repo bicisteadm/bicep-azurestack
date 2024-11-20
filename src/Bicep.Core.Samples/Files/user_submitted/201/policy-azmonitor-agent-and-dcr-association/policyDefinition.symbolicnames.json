@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "5709534592450243267"
+      "templateHash": "3018764743417733006"
     }
   },
   "parameters": {
@@ -328,7 +328,7 @@
         "parameters": {},
         "policyDefinitions": [
           {
-            "policyDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/policyDefinitions', 'deployAzureMonitorAgentWindowsDCR')]",
+            "policyDefinitionId": "[resourceInfo('deployAzureMonitorAgentWindowsDCR').id]",
             "parameters": {}
           }
         ]
@@ -341,7 +341,7 @@
   "outputs": {
     "monitoringGovernanceId": {
       "type": "string",
-      "value": "[subscriptionResourceId('Microsoft.Authorization/policySetDefinitions', 'monitoringGovernance')]"
+      "value": "[resourceInfo('monitoringGovernance').id]"
     }
   }
 }

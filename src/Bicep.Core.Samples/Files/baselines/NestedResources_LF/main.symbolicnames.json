@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "16972434704035043060"
+      "templateHash": "13279831939594268615"
     }
   },
   "parameters": {
@@ -156,7 +156,7 @@
     },
     "loopChildOutput": {
       "type": "string",
-      "value": "loopChild"
+      "value": "[resourceInfo(format('loopParent::loopChild[{0}]', 0)).name]"
     }
   }
 }

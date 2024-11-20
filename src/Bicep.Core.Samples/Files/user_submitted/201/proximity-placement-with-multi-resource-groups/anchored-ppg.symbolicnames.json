@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "13677375953156947894"
+      "templateHash": "12426298595408106184"
     }
   },
   "parameters": {
@@ -72,7 +72,7 @@
                 "id": "[parameters('subnetId')]"
               },
               "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-pip', parameters('vmName')))]"
+                "id": "[resourceInfo('pip').id]"
               }
             }
           }
@@ -94,7 +94,7 @@
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces', format('{0}-nic', parameters('vmName')))]"
+              "id": "[resourceInfo('nic').id]"
             }
           ]
         },
@@ -114,7 +114,7 @@
           }
         },
         "proximityPlacementGroup": {
-          "id": "[resourceId('Microsoft.Compute/proximityPlacementGroups', format('Zone-{0}', parameters('zone')))]"
+          "id": "[resourceInfo('ppg').id]"
         },
         "storageProfile": {
           "imageReference": {
@@ -144,7 +144,7 @@
   "outputs": {
     "ppgId": {
       "type": "string",
-      "value": "[resourceId('Microsoft.Compute/proximityPlacementGroups', format('Zone-{0}', parameters('zone')))]"
+      "value": "[resourceInfo('ppg').id]"
     }
   }
 }

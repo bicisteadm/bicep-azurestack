@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "17456509147118010762"
+      "templateHash": "12748029104933920896"
     }
   },
   "parameters": {
@@ -86,7 +86,7 @@
             "properties": {
               "addressPrefix": "10.0.0.0/24",
               "networkSecurityGroup": {
-                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', 'cc-nsg')]"
+                "id": "[resourceInfo('nsg').id]"
               }
             }
           }
@@ -100,7 +100,7 @@
   "outputs": {
     "vnetId": {
       "type": "string",
-      "value": "[resourceId('Microsoft.Network/virtualNetworks', 'cc-vnet')]"
+      "value": "[resourceInfo('vnet').id]"
     }
   }
 }

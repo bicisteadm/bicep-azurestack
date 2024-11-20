@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "9643288944290129029"
+      "templateHash": "5902542315074289931"
     }
   },
   "parameters": {
@@ -73,7 +73,7 @@
               "sessionAffinityEnabledState": "Disabled",
               "sessionAffinityTtlSeconds": 0,
               "webApplicationFirewallPolicyLink": {
-                "id": "[format('{0}', resourceId('Microsoft.Network/FrontDoorWebApplicationFirewallPolicies', variables('frontDoorWafName')))]"
+                "id": "[format('{0}', resourceInfo('resAzFdWaf').id)]"
               }
             }
           }

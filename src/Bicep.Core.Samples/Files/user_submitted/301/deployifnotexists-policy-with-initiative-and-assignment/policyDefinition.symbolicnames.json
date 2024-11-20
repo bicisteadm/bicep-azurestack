@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "9999619469943623873"
+      "templateHash": "214173270057565227"
     }
   },
   "parameters": {
@@ -284,7 +284,7 @@
         "parameters": {},
         "policyDefinitions": [
           {
-            "policyDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/policyDefinitions', 'bicepExampleDINEpolicy')]",
+            "policyDefinitionId": "[resourceInfo('bicepExampleDINEpolicy').id]",
             "parameters": {}
           }
         ]
@@ -297,7 +297,7 @@
   "outputs": {
     "bicepExampleInitiativeId": {
       "type": "string",
-      "value": "[subscriptionResourceId('Microsoft.Authorization/policySetDefinitions', 'bicepExampleInitiative')]"
+      "value": "[resourceInfo('bicepExampleInitiative').id]"
     }
   }
 }

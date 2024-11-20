@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "16645417412913127760"
+      "templateHash": "17794460806115003501"
     }
   },
   "parameters": {
@@ -37,7 +37,7 @@
       "properties": {
         "storageAccounts": [
           {
-            "id": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
+            "id": "[resourceInfo('storageAccount').id]",
             "type": "Primary"
           }
         ]

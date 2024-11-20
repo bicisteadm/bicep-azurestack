@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "13138224916093371784"
+      "templateHash": "4206280974166400754"
     }
   },
   "parameters": {
@@ -526,7 +526,7 @@
             "_generator": {
               "name": "bicep",
               "version": "dev",
-              "templateHash": "3073617131340510178"
+              "templateHash": "3363210639305844971"
             }
           },
           "parameters": {
@@ -589,10 +589,7 @@
           "variables": {
             "bastionSubnetName": "AzureBastionSubnet",
             "bastionSubnetNsgName": "[format('{0}Nsg', variables('bastionSubnetName'))]",
-            "bastionSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), variables('bastionSubnetName'))]",
-            "vmSubnetNsgName": "[format('{0}Nsg', parameters('vmSubnetName'))]",
-            "vmSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('vmSubnetName'))]",
-            "aksSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('aksSubnetName'))]"
+            "vmSubnetNsgName": "[format('{0}Nsg', parameters('vmSubnetName'))]"
           },
           "resources": {
             "vmSubnetNsg": {
@@ -773,7 +770,7 @@
                     "properties": {
                       "addressPrefix": "[parameters('vmSubnetAddressPrefix')]",
                       "networkSecurityGroup": {
-                        "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('vmSubnetNsgName'))]"
+                        "id": "[resourceInfo('vmSubnetNsg').id]"
                       },
                       "privateEndpointNetworkPolicies": "Disabled",
                       "privateLinkServiceNetworkPolicies": "Enabled"
@@ -784,7 +781,7 @@
                     "properties": {
                       "addressPrefix": "[parameters('bastionSubnetAddressPrefix')]",
                       "networkSecurityGroup": {
-                        "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('bastionSubnetNsgName'))]"
+                        "id": "[resourceInfo('bastionSubnetNsg').id]"
                       }
                     }
                   }
@@ -828,19 +825,19 @@
           "outputs": {
             "virtualNetworkResourceId": {
               "type": "string",
-              "value": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]"
+              "value": "[resourceInfo('virtualNetwork').id]"
             },
             "bastionSubnetId": {
               "type": "string",
-              "value": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), variables('bastionSubnetName'))]"
+              "value": "[resourceInfo('bastionSubnet').id]"
             },
             "aksSubnetId": {
               "type": "string",
-              "value": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('aksSubnetName'))]"
+              "value": "[resourceInfo('aksSubnet').id]"
             },
             "vmSubnetId": {
               "type": "string",
-              "value": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('vmSubnetName'))]"
+              "value": "[resourceInfo('vmSubnet').id]"
             }
           }
         }
@@ -874,7 +871,7 @@
             "_generator": {
               "name": "bicep",
               "version": "dev",
-              "templateHash": "12424586208358642843"
+              "templateHash": "17775223376501402158"
             }
           },
           "parameters": {
@@ -928,7 +925,7 @@
                         "id": "[parameters('bastionSubnetId')]"
                       },
                       "publicIPAddress": {
-                        "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('bastionPublicIpAddressName'))]"
+                        "id": "[resourceInfo('bastionPublicIpAddress').id]"
                       }
                     }
                   }
@@ -976,7 +973,7 @@
             "_generator": {
               "name": "bicep",
               "version": "dev",
-              "templateHash": "4245479900982703468"
+              "templateHash": "10502255492359353354"
             }
           },
           "parameters": {
@@ -1031,7 +1028,7 @@
           "outputs": {
             "logAnalyticsWorkspaceId": {
               "type": "string",
-              "value": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('logAnalyticsWorkspaceName'))]"
+              "value": "[resourceInfo('logAnalyticsWorkspace').id]"
             }
           }
         }
@@ -1110,7 +1107,7 @@
             "_generator": {
               "name": "bicep",
               "version": "dev",
-              "templateHash": "5882546700845036639"
+              "templateHash": "3890111259753343851"
             }
           },
           "parameters": {
@@ -1246,7 +1243,6 @@
           },
           "variables": {
             "vmNicName": "[format('{0}Nic', parameters('vmName'))]",
-            "vmNicId": "[resourceId('Microsoft.Network/networkInterfaces', variables('vmNicName'))]",
             "blobPublicDNSZoneForwarder": "[format('.blob.{0}', environment().suffixes.storage)]",
             "blobPrivateDnsZoneName": "[format('privatelink{0}', variables('blobPublicDNSZoneForwarder'))]",
             "blobStorageAccountPrivateEndpointGroupName": "blob",
@@ -1353,7 +1349,7 @@
                 "networkProfile": {
                   "networkInterfaces": [
                     {
-                      "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('vmNicName'))]"
+                      "id": "[resourceInfo('vmNic').id]"
                     }
                   ]
                 },
@@ -1383,7 +1379,7 @@
                   "stopOnMultipleConnections": false
                 },
                 "protectedSettings": {
-                  "workspaceKey": "[listKeys(resourceId('Microsoft.OperationalInsights/workspaces', variables('logAnalyticsWorkspaceName')), '2020-10-01').primarySharedKey]"
+                  "workspaceKey": "[listKeys(resourceInfo('logAnalyticsWorkspace').id, '2020-10-01').primarySharedKey]"
                 }
               },
               "dependsOn": [
@@ -1437,7 +1433,7 @@
                   {
                     "name": "[parameters('blobStorageAccountPrivateEndpointName')]",
                     "properties": {
-                      "privateLinkServiceId": "[resourceId('Microsoft.Storage/storageAccounts', parameters('blobStorageAccountName'))]",
+                      "privateLinkServiceId": "[resourceInfo('blobStorageAccount').id]",
                       "groupIds": [
                         "[variables('blobStorageAccountPrivateEndpointGroupName')]"
                       ]
@@ -1466,7 +1462,7 @@
                   {
                     "name": "dnsConfig",
                     "properties": {
-                      "privateDnsZoneId": "[resourceId('Microsoft.Network/privateDnsZones', variables('blobPrivateDnsZoneName'))]"
+                      "privateDnsZoneId": "[resourceInfo('blobPrivateDnsZone').id]"
                     }
                   }
                 ]
@@ -1620,7 +1616,7 @@
             "_generator": {
               "name": "bicep",
               "version": "dev",
-              "templateHash": "17167772107049027399"
+              "templateHash": "11151316019058517100"
             }
           },
           "parameters": {
@@ -1976,7 +1972,7 @@
                     "count": "[parameters('nodePoolCount')]",
                     "vmSize": "[parameters('nodePoolVmSize')]",
                     "osDiskSizeGB": "[parameters('nodePoolOsDiskSizeGB')]",
-                    "vnetSubnetID": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), parameters('aksSubnetName'))]",
+                    "vnetSubnetID": "[resourceInfo('aksSubnet').id]",
                     "maxPods": "[parameters('nodePoolMaxPods')]",
                     "osType": "[parameters('nodePoolOsType')]",
                     "maxCount": "[parameters('nodePoolMaxCount')]",

@@ -370,28 +370,32 @@ namespace Bicep.Core.Emit
             }
             else if (resource is DeclaredResourceMetadata declaredResource)
             {
-                // For symbolic-named resources we have the option of simplifying codegen by emitting expressions like "resourceInfo('symbolicName').id".
-                // However, there are numerous cases where resourceInfo can & can't be used, and it's too difficult to try and address them all here.
-                // See https://github.com/Azure/bicep/issues/9450 & https://github.com/Azure/bicep/issues/9246 for examples.
-                // For now, let's stick with emitting the more verbose expressions that we know work.
-
-                switch (propertyName)
+                switch ((propertyName, context.Settings.EnableSymbolicNames))
                 {
-                    case "id":
+                    case ("id", true):
+                    case ("name", true):
+                    case ("type", true):
+                    case ("apiversion", true):
+                        var symbolExpression = GenerateSymbolicReference(declaredResource, indexContext);
+                        return (
+                            CreateFunction("resourceInfo", symbolExpression),
+                            [new JTokenExpression(propertyName)],
+                            safeAccess);
+                    case ("id", false):
                         // the ID is dependent on the name expression which could involve locals in case of a resource collection
                         return (GetFullyQualifiedResourceId(resource), Enumerable.Empty<LanguageExpression>(), safeAccess);
-                    case "name":
+                    case ("name", false):
                         // the name is dependent on the name expression which could involve locals in case of a resource collection
 
                         // Note that we don't want to return the fully-qualified resource name in the case of name property access.
                         // we should return whatever the user has set as the value of the 'name' property for a predictable user experience.
                         return (ConvertExpression(declaredResource.NameSyntax), Enumerable.Empty<LanguageExpression>(), safeAccess);
-                    case "type":
+                    case ("type", false):
                         return (new JTokenExpression(resource.TypeReference.FormatType()), Enumerable.Empty<LanguageExpression>(), safeAccess);
-                    case "apiVersion":
+                    case ("apiVersion", false):
                         var apiVersion = resource.TypeReference.ApiVersion ?? throw new InvalidOperationException($"Expected resource type {resource.TypeReference.FormatName()} to contain version");
                         return (new JTokenExpression(apiVersion), Enumerable.Empty<LanguageExpression>(), safeAccess);
-                    case "properties" when !safeAccess:
+                    case ("properties", _) when !safeAccess:
                         // use the reference() overload without "full" to generate a shorter expression
                         // this is dependent on the name expression which could involve locals in case of a resource collection
                         return (GetReferenceExpression(resource, indexContext, false), Enumerable.Empty<LanguageExpression>(), safeAccess);

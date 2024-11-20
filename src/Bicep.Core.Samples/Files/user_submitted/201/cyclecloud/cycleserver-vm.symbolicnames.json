@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "15078872872687297179"
+      "templateHash": "12161987174832339150"
     }
   },
   "parameters": {
@@ -53,7 +53,7 @@
                 "id": "[parameters('subnetId')]"
               },
               "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses', 'cycleserver-pip')]"
+                "id": "[resourceInfo('pip').id]"
               }
             }
           }
@@ -112,7 +112,7 @@
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces', 'cycleserver-nic')]"
+              "id": "[resourceInfo('nic').id]"
             }
           ]
         }

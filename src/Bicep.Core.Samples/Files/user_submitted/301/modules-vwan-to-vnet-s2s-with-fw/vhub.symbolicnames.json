@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "7289270872102318964"
+      "templateHash": "6345730089971609813"
     }
   },
   "parameters": {
@@ -48,11 +48,11 @@
   "outputs": {
     "id": {
       "type": "string",
-      "value": "[resourceId('Microsoft.Network/virtualHubs', parameters('hubname'))]"
+      "value": "[resourceInfo('hub').id]"
     },
     "name": {
       "type": "string",
-      "value": "[parameters('hubname')]"
+      "value": "[resourceInfo('hub').name]"
     },
     "vhubaddress": {
       "type": "string",

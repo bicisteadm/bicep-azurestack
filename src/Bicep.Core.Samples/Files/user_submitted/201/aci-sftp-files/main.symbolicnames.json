@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "6574878384061361538"
+      "templateHash": "15167674208836904572"
     }
   },
   "parameters": {
@@ -82,13 +82,13 @@
       "identity": {
         "type": "UserAssigned",
         "userAssignedIdentities": {
-          "[format('{0}', resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('identityName')))]": {}
+          "[format('{0}', resourceInfo('managedIdentity').id)]": {}
         }
       },
       "properties": {
         "forceUpdateTag": "1",
         "azPowerShellVersion": "3.0",
-        "arguments": "[format(' -storageAccountName {0} -fileShareName {1} -resourceGroupName {2}', variables('storageAccountName'), parameters('fileShareName'), resourceGroup().name)]",
+        "arguments": "[format(' -storageAccountName {0} -fileShareName {1} -resourceGroupName {2}', resourceInfo('storageAccount').name, parameters('fileShareName'), resourceGroup().name)]",
         "scriptContent": "param([string] $storageAccountName, [string] $fileShareName, [string] $resourceGroupName) Get-AzStorageAccount -StorageAccountName $storageAccountName -ResourceGroupName $resourceGroupName | New-AzStorageShare -Name $fileShareName",
         "timeout": "PT5M",
         "cleanupPreference": "OnSuccess",
@@ -154,8 +154,8 @@
             "azureFile": {
               "readOnly": false,
               "shareName": "[parameters('fileShareName')]",
-              "storageAccountName": "[variables('storageAccountName')]",
-              "storageAccountKey": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2020-08-01-preview').keys[0].value]"
+              "storageAccountName": "[resourceInfo('storageAccount').name]",
+              "storageAccountKey": "[listKeys(resourceInfo('storageAccount').id, '2020-08-01-preview').keys[0].value]"
             }
           }
         ]

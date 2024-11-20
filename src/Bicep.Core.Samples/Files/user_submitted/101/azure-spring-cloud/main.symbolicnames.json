@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "1549212874261929219"
+      "templateHash": "465230755144375673"
     }
   },
   "parameters": {
@@ -53,7 +53,7 @@
     "app1": {
       "type": "Microsoft.AppPlatform/Spring/apps",
       "apiVersion": "2020-07-01",
-      "name": "[format('{0}/{1}', parameters('serviceName'), parameters('app1Name'))]",
+      "name": "[format('{0}/{1}', resourceInfo('service').name, parameters('app1Name'))]",
       "properties": {
         "public": true
       },
@@ -64,7 +64,7 @@
     "app1deployment": {
       "type": "Microsoft.AppPlatform/Spring/apps/deployments",
       "apiVersion": "2020-07-01",
-      "name": "[format('{0}/default', format('{0}/{1}', parameters('serviceName'), parameters('app1Name')))]",
+      "name": "[format('{0}/default', resourceInfo('app1').name)]",
       "properties": {
         "source": {
           "relativePath": "<default>",
@@ -78,7 +78,7 @@
     "app2": {
       "type": "Microsoft.AppPlatform/Spring/apps",
       "apiVersion": "2020-07-01",
-      "name": "[format('{0}/{1}', parameters('serviceName'), parameters('app2Name'))]",
+      "name": "[format('{0}/{1}', resourceInfo('service').name, parameters('app2Name'))]",
       "properties": {
         "public": false
       },
@@ -89,7 +89,7 @@
     "app2deployment": {
       "type": "Microsoft.AppPlatform/Spring/apps/deployments",
       "apiVersion": "2020-07-01",
-      "name": "[format('{0}/default', format('{0}/{1}', parameters('serviceName'), parameters('app2Name')))]",
+      "name": "[format('{0}/default', resourceInfo('app2').name)]",
       "properties": {
         "source": {
           "relativePath": "<default>",
@@ -103,7 +103,7 @@
     "app3": {
       "type": "Microsoft.AppPlatform/Spring/apps",
       "apiVersion": "2020-07-01",
-      "name": "[format('{0}/{1}', parameters('serviceName'), parameters('app3Name'))]",
+      "name": "[format('{0}/{1}', resourceInfo('service').name, parameters('app3Name'))]",
       "properties": {
         "public": false
       },
@@ -114,7 +114,7 @@
     "app3deployment": {
       "type": "Microsoft.AppPlatform/Spring/apps/deployments",
       "apiVersion": "2020-07-01",
-      "name": "[format('{0}/default', format('{0}/{1}', parameters('serviceName'), parameters('app3Name')))]",
+      "name": "[format('{0}/default', resourceInfo('app3').name)]",
       "properties": {
         "source": {
           "relativePath": "<default>",
@@ -136,13 +136,13 @@
         "mode": "Incremental",
         "parameters": {
           "app1Name": {
-            "value": "[format('{0}/{1}', parameters('serviceName'), parameters('app1Name'))]"
+            "value": "[resourceInfo('app1').name]"
           },
           "app2Name": {
-            "value": "[format('{0}/{1}', parameters('serviceName'), parameters('app2Name'))]"
+            "value": "[resourceInfo('app2').name]"
           },
           "app3Name": {
-            "value": "[format('{0}/{1}', parameters('serviceName'), parameters('app3Name'))]"
+            "value": "[resourceInfo('app3').name]"
           }
         },
         "template": {

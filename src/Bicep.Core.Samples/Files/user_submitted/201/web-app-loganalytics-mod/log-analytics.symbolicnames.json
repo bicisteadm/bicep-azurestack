@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "5031604210472804656"
+      "templateHash": "4139525263439340999"
     }
   },
   "parameters": {
@@ -43,7 +43,7 @@
   "outputs": {
     "logAnalaticsWorkspaceResourceID": {
       "type": "string",
-      "value": "[resourceId('Microsoft.OperationalInsights/workspaces', variables('logAnalyticsName'))]"
+      "value": "[resourceInfo('logAnalyticsWorkspace').id]"
     }
   }
 }

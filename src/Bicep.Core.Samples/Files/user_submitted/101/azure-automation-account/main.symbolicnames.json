@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "16645188667250947045"
+      "templateHash": "6394541154223859970"
     }
   },
   "parameters": {
@@ -63,7 +63,7 @@
       "scope": "[format('Microsoft.Automation/automationAccounts/{0}', variables('automationaccountName'))]",
       "name": "[variables('automationaccountDiagName')]",
       "properties": {
-        "workspaceId": "[resourceId('Microsoft.OperationalInsights/workspaces', variables('workspaceName'))]",
+        "workspaceId": "[resourceInfo('automation_log_analytics').id]",
         "logs": [
           {
             "category": "JobLogs",

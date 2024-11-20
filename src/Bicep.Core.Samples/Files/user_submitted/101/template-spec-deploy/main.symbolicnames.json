@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "15369804211876997670"
+      "templateHash": "6059622649160265171"
     }
   },
   "parameters": {
@@ -52,7 +52,7 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "id": "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', parameters('templateSpecSub'), parameters('templateSpecRg')), 'Microsoft.Resources/templateSpecs/versions', parameters('templateSpecName'), parameters('templateSpecVersion'))]"
+          "id": "[resourceInfo('ts::tsVersion').id]"
         },
         "parameters": {}
       },

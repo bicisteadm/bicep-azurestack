@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "6728112594291271947"
+      "templateHash": "1974099398337829805"
     }
   },
   "parameters": {
@@ -45,7 +45,7 @@
           {
             "name": "config1",
             "properties": {
-              "privateDnsZoneId": "[resourceId('Microsoft.Network/privateDnsZones', parameters('privateDNSZoneName'))]"
+              "privateDnsZoneId": "[resourceInfo('privateDNSZone').id]"
             }
           }
         ]
@@ -58,7 +58,7 @@
     "privateDNSZone::virtualNetworkLink": {
       "type": "Microsoft.Network/privateDnsZones/virtualNetworkLinks",
       "apiVersion": "2020-06-01",
-      "name": "[format('{0}/{1}', parameters('privateDNSZoneName'), format('{0}-link', parameters('privateDNSZoneName')))]",
+      "name": "[format('{0}/{1}', parameters('privateDNSZoneName'), format('{0}-link', resourceInfo('privateDNSZone').name))]",
       "location": "global",
       "properties": {
         "registrationEnabled": false,

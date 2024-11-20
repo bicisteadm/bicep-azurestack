@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "17224981918752092141"
+      "templateHash": "9803000287105016265"
     }
   },
   "parameters": {
@@ -66,7 +66,7 @@
             "_generator": {
               "name": "bicep",
               "version": "dev",
-              "templateHash": "14926570491909294535"
+              "templateHash": "9794766894562802350"
             }
           },
           "parameters": {
@@ -97,11 +97,11 @@
           "outputs": {
             "name": {
               "type": "string",
-              "value": "[format('{0}-rg', parameters('prefix'))]"
+              "value": "[resourceInfo('vnet').name]"
             },
             "id": {
               "type": "string",
-              "value": "[resourceId('Microsoft.Network/virtualNetworks', format('{0}-rg', parameters('prefix')))]"
+              "value": "[resourceInfo('vnet').id]"
             }
           }
         }
@@ -152,7 +152,7 @@
             "_generator": {
               "name": "bicep",
               "version": "dev",
-              "templateHash": "14926570491909294535"
+              "templateHash": "9794766894562802350"
             }
           },
           "parameters": {
@@ -183,11 +183,11 @@
           "outputs": {
             "name": {
               "type": "string",
-              "value": "[format('{0}-rg', parameters('prefix'))]"
+              "value": "[resourceInfo('vnet').name]"
             },
             "id": {
               "type": "string",
-              "value": "[resourceId('Microsoft.Network/virtualNetworks', format('{0}-rg', parameters('prefix')))]"
+              "value": "[resourceInfo('vnet').id]"
             }
           }
         }
@@ -223,7 +223,7 @@
             "_generator": {
               "name": "bicep",
               "version": "dev",
-              "templateHash": "1297320721662732846"
+              "templateHash": "15216259865999843676"
             }
           },
           "parameters": {
@@ -262,7 +262,7 @@
                         "id": "[format('{0}/subnets/AzureFirewallSubnet', parameters('hubId'))]"
                       },
                       "publicIPAddress": {
-                        "id": "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-fwl-ip', parameters('prefix')))]"
+                        "id": "[resourceInfo('publicIp').id]"
                       }
                     }
                   }
@@ -446,7 +446,7 @@
             "_generator": {
               "name": "bicep",
               "version": "dev",
-              "templateHash": "11357569536420343252"
+              "templateHash": "13104436215614411561"
             }
           },
           "parameters": {
@@ -481,7 +481,7 @@
           "outputs": {
             "id": {
               "type": "string",
-              "value": "[resourceId('Microsoft.Network/routeTables', format('{0}-rot', parameters('prefix')))]"
+              "value": "[resourceInfo('route').id]"
             }
           }
         }

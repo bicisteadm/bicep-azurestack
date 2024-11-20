@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "10443636009132740003"
+      "templateHash": "9917367184517962712"
     }
   },
   "parameters": {
@@ -79,7 +79,7 @@
             "properties": {
               "addressPrefix": "10.0.1.0/24",
               "networkSecurityGroup": {
-                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName2'))]"
+                "id": "[resourceInfo('nsg2').id]"
               }
             }
           }
@@ -100,17 +100,17 @@
             "name": "ipconfig1",
             "properties": {
               "subnet": {
-                "id": "[format('{0}/subnets/{1}', resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName')), variables('subnet1Name'))]"
+                "id": "[format('{0}/subnets/{1}', resourceInfo('vnet').id, variables('subnet1Name'))]"
               },
               "privateIPAllocationMethod": "Dynamic",
               "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))]"
+                "id": "[resourceInfo('pip').id]"
               }
             }
           }
         ],
         "networkSecurityGroup": {
-          "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]"
+          "id": "[resourceInfo('nsg').id]"
         }
       },
       "dependsOn": [
@@ -130,7 +130,7 @@
             "name": "ipconfig1",
             "properties": {
               "subnet": {
-                "id": "[format('{0}/subnets/{1}', resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName')), variables('subnet2Name'))]"
+                "id": "[format('{0}/subnets/{1}', resourceInfo('vnet').id, variables('subnet2Name'))]"
               },
               "privateIPAllocationMethod": "Dynamic"
             }
@@ -196,10 +196,10 @@
             "value": "VM-MultiNic"
           },
           "nic1Id": {
-            "value": "[resourceId('Microsoft.Network/networkInterfaces', variables('nic1Name'))]"
+            "value": "[resourceInfo('nic1').id]"
           },
           "nic2Id": {
-            "value": "[resourceId('Microsoft.Network/networkInterfaces', variables('nic2Name'))]"
+            "value": "[resourceInfo('nic2').id]"
           },
           "diagsStorageUri": {
             "value": "[reference('diagsAccount').primaryEndpoints.blob]"

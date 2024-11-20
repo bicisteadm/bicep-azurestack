@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "13967933445482532999"
+      "templateHash": "4242517195029877481"
     }
   },
   "parameters": {
@@ -22,10 +22,6 @@
         "[variables('deployTimeVar')]",
         "[parameters('deployTimeParam')]"
       ]
-    },
-    "resourceIds": {
-      "a": "[resourceId('My.Rp/myResourceType', 'resA')]",
-      "b": "[resourceId('My.Rp/myResourceType', 'resB')]"
     }
   },
   "resources": {
@@ -45,9 +41,9 @@
       "properties": {
         "dependencies": {
           "dependenciesA": [
-            "[resourceId('My.Rp/myResourceType', 'resA')]",
-            "resA",
-            "My.Rp/myResourceType",
+            "[resourceInfo('resA').id]",
+            "[resourceInfo('resA').name]",
+            "[resourceInfo('resA').type]",
             "[reference('resA').deployTime]",
             "[reference('resA').eTag]"
           ]
@@ -62,7 +58,10 @@
       "apiVersion": "2020-01-01",
       "name": "resC",
       "properties": {
-        "resourceIds": "[variables('resourceIds')]"
+        "resourceIds": {
+          "a": "[resourceInfo('resA').id]",
+          "b": "[resourceInfo('resB').id]"
+        }
       },
       "dependsOn": [
         "resA",
@@ -72,7 +71,7 @@
     "resD": {
       "type": "My.Rp/myResourceType/childType",
       "apiVersion": "2020-01-01",
-      "name": "[format('{0}/resD', 'resC')]",
+      "name": "[format('{0}/resD', resourceInfo('resC').name)]",
       "properties": {},
       "dependsOn": [
         "resC"
@@ -83,7 +82,7 @@
       "apiVersion": "2020-01-01",
       "name": "resC/resD",
       "properties": {
-        "resDRef": "[resourceId('My.Rp/myResourceType/childType', split(format('{0}/resD', 'resC'), '/')[0], split(format('{0}/resD', 'resC'), '/')[1])]"
+        "resDRef": "[resourceInfo('resD').id]"
       },
       "dependsOn": [
         "resD"
@@ -93,11 +92,11 @@
   "outputs": {
     "resourceAType": {
       "type": "string",
-      "value": "My.Rp/myResourceType"
+      "value": "[resourceInfo('resA').type]"
     },
     "resourceBId": {
       "type": "string",
-      "value": "[resourceId('My.Rp/myResourceType', 'resB')]"
+      "value": "[resourceInfo('resB').id]"
     },
     "resourceCProperties": {
       "type": "object",

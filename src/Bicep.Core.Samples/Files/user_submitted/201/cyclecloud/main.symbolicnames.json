@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "448105156499832434"
+      "templateHash": "14060660150319813756"
     }
   },
   "parameters": {
@@ -87,7 +87,7 @@
             "_generator": {
               "name": "bicep",
               "version": "dev",
-              "templateHash": "17456509147118010762"
+              "templateHash": "12748029104933920896"
             }
           },
           "parameters": {
@@ -167,7 +167,7 @@
                     "properties": {
                       "addressPrefix": "10.0.0.0/24",
                       "networkSecurityGroup": {
-                        "id": "[resourceId('Microsoft.Network/networkSecurityGroups', 'cc-nsg')]"
+                        "id": "[resourceInfo('nsg').id]"
                       }
                     }
                   }
@@ -181,7 +181,7 @@
           "outputs": {
             "vnetId": {
               "type": "string",
-              "value": "[resourceId('Microsoft.Network/virtualNetworks', 'cc-vnet')]"
+              "value": "[resourceInfo('vnet').id]"
             }
           }
         }
@@ -207,7 +207,7 @@
             "value": "[format('{0}/subnets/Default', reference('network').outputs.vnetId.value)]"
           },
           "userAssignedIdentity": {
-            "value": "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', 'CycleCloud-MI')]"
+            "value": "[resourceInfo('mid').id]"
           }
         },
         "template": {
@@ -218,7 +218,7 @@
             "_generator": {
               "name": "bicep",
               "version": "dev",
-              "templateHash": "15078872872687297179"
+              "templateHash": "12161987174832339150"
             }
           },
           "parameters": {
@@ -265,7 +265,7 @@
                         "id": "[parameters('subnetId')]"
                       },
                       "publicIPAddress": {
-                        "id": "[resourceId('Microsoft.Network/publicIPAddresses', 'cycleserver-pip')]"
+                        "id": "[resourceInfo('pip').id]"
                       }
                     }
                   }
@@ -324,7 +324,7 @@
                 "networkProfile": {
                   "networkInterfaces": [
                     {
-                      "id": "[resourceId('Microsoft.Network/networkInterfaces', 'cycleserver-nic')]"
+                      "id": "[resourceInfo('nic').id]"
                     }
                   ]
                 }

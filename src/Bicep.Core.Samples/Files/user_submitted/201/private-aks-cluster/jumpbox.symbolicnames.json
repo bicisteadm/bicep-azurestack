@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "5882546700845036639"
+      "templateHash": "3890111259753343851"
     }
   },
   "parameters": {
@@ -142,7 +142,6 @@
   },
   "variables": {
     "vmNicName": "[format('{0}Nic', parameters('vmName'))]",
-    "vmNicId": "[resourceId('Microsoft.Network/networkInterfaces', variables('vmNicName'))]",
     "blobPublicDNSZoneForwarder": "[format('.blob.{0}', environment().suffixes.storage)]",
     "blobPrivateDnsZoneName": "[format('privatelink{0}', variables('blobPublicDNSZoneForwarder'))]",
     "blobStorageAccountPrivateEndpointGroupName": "blob",
@@ -249,7 +248,7 @@
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('vmNicName'))]"
+              "id": "[resourceInfo('vmNic').id]"
             }
           ]
         },
@@ -279,7 +278,7 @@
           "stopOnMultipleConnections": false
         },
         "protectedSettings": {
-          "workspaceKey": "[listKeys(resourceId('Microsoft.OperationalInsights/workspaces', variables('logAnalyticsWorkspaceName')), '2020-10-01').primarySharedKey]"
+          "workspaceKey": "[listKeys(resourceInfo('logAnalyticsWorkspace').id, '2020-10-01').primarySharedKey]"
         }
       },
       "dependsOn": [
@@ -333,7 +332,7 @@
           {
             "name": "[parameters('blobStorageAccountPrivateEndpointName')]",
             "properties": {
-              "privateLinkServiceId": "[resourceId('Microsoft.Storage/storageAccounts', parameters('blobStorageAccountName'))]",
+              "privateLinkServiceId": "[resourceInfo('blobStorageAccount').id]",
               "groupIds": [
                 "[variables('blobStorageAccountPrivateEndpointGroupName')]"
               ]
@@ -362,7 +361,7 @@
           {
             "name": "dnsConfig",
             "properties": {
-              "privateDnsZoneId": "[resourceId('Microsoft.Network/privateDnsZones', variables('blobPrivateDnsZoneName'))]"
+              "privateDnsZoneId": "[resourceInfo('blobPrivateDnsZone').id]"
             }
           }
         ]

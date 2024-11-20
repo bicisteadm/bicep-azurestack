@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "5618604453178758489"
+      "templateHash": "16840337995177161826"
     }
   },
   "parameters": {
@@ -60,7 +60,7 @@
         "name": "[parameters('aseName')]",
         "workerPools": [],
         "virtualNetwork": {
-          "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', split(parameters('subnetName'), '/')[0], split(parameters('subnetName'), '/')[1])]"
+          "id": "[resourceInfo('subNet').id]"
         }
       },
       "dependsOn": [

@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "12389574234963167456"
+      "templateHash": "7782470333796532137"
     }
   },
   "parameters": {
@@ -76,7 +76,7 @@
       "properties": {
         "friendlyName": "[parameters('appgroupNameFriendlyName')]",
         "applicationGroupType": "[parameters('applicationgrouptype')]",
-        "hostPoolArmPath": "[resourceId('Microsoft.DesktopVirtualization/hostPools', parameters('hostpoolName'))]"
+        "hostPoolArmPath": "[resourceInfo('hp').id]"
       },
       "dependsOn": [
         "hp"
@@ -90,7 +90,7 @@
       "properties": {
         "friendlyName": "[parameters('workspaceNameFriendlyName')]",
         "applicationGroupReferences": [
-          "[resourceId('Microsoft.DesktopVirtualization/applicationGroups', parameters('appgroupName'))]"
+          "[resourceInfo('ag').id]"
         ]
       },
       "dependsOn": [

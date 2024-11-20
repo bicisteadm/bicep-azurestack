@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "13176209200965082288"
+      "templateHash": "7057002885429033026"
     }
   },
   "parameters": {
@@ -183,7 +183,7 @@
             "name": "appGatewayIpConfig",
             "properties": {
               "subnet": {
-                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnetName'))]"
+                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', resourceInfo('virtualNetwork').name, parameters('subnetName'))]"
               }
             }
           }
@@ -193,7 +193,7 @@
             "name": "appGatewayFrontendIP",
             "properties": {
               "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('appGwPublicIpName'))]"
+                "id": "[resourceInfo('publicIP').id]"
               }
             }
           }

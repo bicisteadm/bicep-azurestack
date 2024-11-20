@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "15117962878136796991"
+      "templateHash": "4557413433246293391"
     }
   },
   "parameters": {
@@ -102,7 +102,7 @@
             "properties": {
               "addressPrefix": "10.0.0.0/24",
               "networkSecurityGroup": {
-                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', 'cc-nsg')]"
+                "id": "[resourceInfo('nsg').id]"
               }
             }
           }
@@ -133,10 +133,10 @@
             "properties": {
               "privateIPAllocationMethod": "Dynamic",
               "subnet": {
-                "id": "[format('{0}/subnets/Default', resourceId('Microsoft.Network/virtualNetworks', 'cc-vnet'))]"
+                "id": "[format('{0}/subnets/Default', resourceInfo('vnet').id)]"
               },
               "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses', 'cycleserver-pip')]"
+                "id": "[resourceInfo('pip').id]"
               }
             }
           }
@@ -171,7 +171,7 @@
       "identity": {
         "type": "UserAssigned",
         "userAssignedIdentities": {
-          "[format('{0}', resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', 'CycleCloud-MI'))]": {}
+          "[format('{0}', resourceInfo('mid').id)]": {}
         }
       },
       "properties": {
@@ -212,7 +212,7 @@
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces', 'cycleserver-nic')]"
+              "id": "[resourceInfo('nic').id]"
             }
           ]
         }

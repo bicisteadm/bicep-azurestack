@@ -215,7 +215,7 @@ namespace Bicep.Core.Emit
                 return;
             }
 
-            static bool ShouldSkipInlining(ObjectType objectType, string propertyName, ResourceSymbol? resourceSymbol = null)
+            bool ShouldSkipInlining(ObjectType objectType, string propertyName, ResourceSymbol? resourceSymbol = null)
             {
                 if (!objectType.Properties.TryGetValue(propertyName, out var propertyType))
                 {
@@ -226,10 +226,17 @@ namespace Bicep.Core.Emit
                 if (propertyType.Flags.HasFlag(TypePropertyFlags.DeployTimeConstant))
                 {
                     // TODO: Do we need to special case resource properties here?
-                    if (resourceSymbol is not null &&
-                        !AzResourceTypeProvider.ReadWriteDeployTimeConstantPropertyNames.Contains(propertyName, LanguageConstants.IdentifierComparer))
+                    if (resourceSymbol is not null)
                     {
-                        // The property is not declared in the resource - we should inline event it is a deploy-time constant.
+                        if (AzResourceTypeProvider.ReadWriteDeployTimeConstantPropertyNames.Contains(propertyName, LanguageConstants.IdentifierComparer) &&
+                            !model.EmitterSettings.EnableSymbolicNames)
+                        {
+                            // For non-symbolic name scenarios, we are able to emit name, type, apiVersion & id properties directly, without introducing non-DTCs
+                            // For symbolic name scenarios, we instead use `resourceInfo('symbol').id`, which cannot be used when evaluating variables
+                            return true;
+                        }
+
+                        // The property is not declared in the resource - we should inline even if it is a deploy-time constant.
                         // We skip standardized properties (id, name, type, and apiVersion) since their values are always known
                         // and emitted if there are not syntactic and semantic errors (see ConvertResourcePropertyAccess in ExpressionConverter).
                         return false;

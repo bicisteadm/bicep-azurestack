@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "8821485150360826984"
+      "templateHash": "6640612451060325849"
     }
   },
   "parameters": {
@@ -37,7 +37,7 @@
     "templateSpecVersion": {
       "type": "Microsoft.Resources/templateSpecs/versions",
       "apiVersion": "2019-06-01-preview",
-      "name": "[format('{0}/{1}', parameters('templateSpecName'), parameters('templateSpecVersionName'))]",
+      "name": "[format('{0}/{1}', resourceInfo('templateSpec').name, parameters('templateSpecVersionName'))]",
       "location": "[parameters('location')]",
       "properties": {
         "template": {

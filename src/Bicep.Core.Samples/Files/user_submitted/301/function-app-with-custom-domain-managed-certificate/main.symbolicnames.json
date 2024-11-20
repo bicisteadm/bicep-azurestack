@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "11676306796050547526"
+      "templateHash": "2293484620791754774"
     }
   },
   "parameters": {
@@ -69,7 +69,7 @@
       },
       "properties": {
         "httpsOnly": true,
-        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', format('{0}-asp', variables('componentBase')))]",
+        "serverFarmId": "[resourceInfo('hostingPlan').id]",
         "clientAffinityEnabled": false,
         "siteConfig": {
           "http20Enabled": true,
@@ -99,11 +99,11 @@
             },
             {
               "name": "AzureWebJobsStorage",
-              "value": "[format('DefaultEndpointsProtocol=https;AccountName={0};EndpointSuffix={1};AccountKey={2}', format('{0}st', replace(variables('componentBase'), '-', '')), environment().suffixes.storage, listKeys(resourceId('Microsoft.Storage/storageAccounts', format('{0}st', replace(variables('componentBase'), '-', ''))), '2019-06-01').keys[0].value)]"
+              "value": "[format('DefaultEndpointsProtocol=https;AccountName={0};EndpointSuffix={1};AccountKey={2}', resourceInfo('storage').name, environment().suffixes.storage, listKeys(resourceInfo('storage').id, '2019-06-01').keys[0].value)]"
             },
             {
               "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
-              "value": "[format('DefaultEndpointsProtocol=https;AccountName={0};EndpointSuffix={1};AccountKey={2}', format('{0}st', replace(variables('componentBase'), '-', '')), environment().suffixes.storage, listKeys(resourceId('Microsoft.Storage/storageAccounts', format('{0}st', replace(variables('componentBase'), '-', ''))), '2019-06-01').keys[0].value)]"
+              "value": "[format('DefaultEndpointsProtocol=https;AccountName={0};EndpointSuffix={1};AccountKey={2}', resourceInfo('storage').name, environment().suffixes.storage, listKeys(resourceInfo('storage').id, '2019-06-01').keys[0].value)]"
             },
             {
               "name": "WEBSITE_CONTENTSHARE",
@@ -143,7 +143,7 @@
       "properties": {
         "TTL": 3600,
         "CNAMERecord": {
-          "cname": "[format('{0}.azurewebsites.net', format('{0}-functionapp', variables('componentBase')))]"
+          "cname": "[format('{0}.azurewebsites.net', resourceInfo('functionApp').name)]"
         }
       },
       "dependsOn": [
@@ -153,12 +153,12 @@
     "functionAppCustomHost": {
       "type": "Microsoft.Web/sites/hostNameBindings",
       "apiVersion": "2020-06-01",
-      "name": "[format('{0}/{1}.{2}', format('{0}-functionapp', variables('componentBase')), parameters('applicationName'), parameters('dnsZone'))]",
+      "name": "[format('{0}/{1}.{2}', resourceInfo('functionApp').name, parameters('applicationName'), parameters('dnsZone'))]",
       "properties": {
         "hostNameType": "Verified",
         "sslState": "Disabled",
         "customHostNameDnsRecordType": "CName",
-        "siteName": "[format('{0}-functionapp', variables('componentBase'))]"
+        "siteName": "[resourceInfo('functionApp').name]"
       },
       "dependsOn": [
         "dnsCname",
@@ -172,7 +172,7 @@
       "name": "[format('{0}.{1}', parameters('applicationName'), parameters('dnsZone'))]",
       "location": "[variables('location')]",
       "properties": {
-        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', format('{0}-asp', variables('componentBase')))]",
+        "serverFarmId": "[resourceInfo('hostingPlan').id]",
         "canonicalName": "[format('{0}.{1}', parameters('applicationName'), parameters('dnsZone'))]"
       },
       "dependsOn": [
@@ -191,10 +191,10 @@
         "mode": "Incremental",
         "parameters": {
           "functionAppName": {
-            "value": "[format('{0}-functionapp', variables('componentBase'))]"
+            "value": "[resourceInfo('functionApp').name]"
           },
           "functionAppHostname": {
-            "value": "[format('{0}', format('{0}.{1}', parameters('applicationName'), parameters('dnsZone')))]"
+            "value": "[format('{0}', resourceInfo('functionAppCustomHostCertificate').name)]"
           },
           "certificateThumbprint": {
             "value": "[reference('functionAppCustomHostCertificate').thumbprint]"

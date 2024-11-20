@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "3125023772980401640"
+      "templateHash": "13530238628155997723"
     }
   },
   "parameters": {
@@ -167,10 +167,10 @@
       "properties": {
         "addressPrefix": "[parameters('subnetPrefix')]",
         "routeTable": {
-          "id": "[resourceId('Microsoft.Network/routeTables', variables('routeTableName'))]"
+          "id": "[resourceInfo('routeTable').id]"
         },
         "networkSecurityGroup": {
-          "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]"
+          "id": "[resourceInfo('networkSecurityGroup').id]"
         },
         "delegations": [
           {
@@ -200,7 +200,7 @@
       "properties": {
         "administratorLogin": "[parameters('adminLogin')]",
         "administratorLoginPassword": "[parameters('adminPassword')]",
-        "subnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', split(parameters('subnetName'), '/')[0], split(parameters('subnetName'), '/')[1])]",
+        "subnetId": "[resourceInfo('subnet').id]",
         "storageSizeInGB": "[parameters('storageSizeInGB')]",
         "vCores": "[parameters('vCores')]",
         "licenseType": "LicenseIncluded"

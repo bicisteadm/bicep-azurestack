@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "13381616690819142544"
+      "templateHash": "8016176623311587105"
     }
   },
   "parameters": {
@@ -70,7 +70,7 @@
             },
             {
               "name": "DOCKER_REGISTRY_SERVER_PASSWORD",
-              "value": "[listCredentials(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', parameters('acrSubscription'), parameters('acrResourceGroup')), 'Microsoft.ContainerRegistry/registries', parameters('acrName')), '2019-05-01').passwords[0].value]"
+              "value": "[listCredentials(resourceInfo('containerRegistry').id, '2019-05-01').passwords[0].value]"
             },
             {
               "name": "WEBSITES_ENABLE_APP_SERVICE_STORAGE",
@@ -79,7 +79,7 @@
           ],
           "linuxFxVersion": "[format('DOCKER|{0}.azurecr.io/{1}', parameters('acrName'), parameters('dockerImageAndTag'))]"
         },
-        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('farmName'))]"
+        "serverFarmId": "[resourceInfo('farm').id]"
       },
       "dependsOn": [
         "containerRegistry",

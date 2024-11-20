@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "15466826337504407553"
+      "templateHash": "1150560149256407952"
     }
   },
   "parameters": {
@@ -59,7 +59,7 @@
     "subnet": {
       "type": "Microsoft.Network/virtualNetworks/subnets",
       "apiVersion": "2020-06-01",
-      "name": "[format('{0}/{1}', parameters('virtualNetworkName'), variables('azureFirewallSubnetName'))]",
+      "name": "[format('{0}/{1}', resourceInfo('virtualNetwork').name, variables('azureFirewallSubnetName'))]",
       "properties": {
         "addressPrefix": "[parameters('azureFirewallSubnetAddressPrefix')]"
       },
@@ -92,10 +92,10 @@
             "name": "IpConf1",
             "properties": {
               "subnet": {
-                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', split(format('{0}/{1}', parameters('virtualNetworkName'), variables('azureFirewallSubnetName')), '/')[0], split(format('{0}/{1}', parameters('virtualNetworkName'), variables('azureFirewallSubnetName')), '/')[1])]"
+                "id": "[resourceInfo('subnet').id]"
               },
               "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses', 'publicIp1')]"
+                "id": "[resourceInfo('publicIP').id]"
               }
             }
           }

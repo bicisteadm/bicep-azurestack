@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "15343594018338323406"
+      "templateHash": "10946138627032088574"
     }
   },
   "parameters": {
@@ -49,11 +49,11 @@
   "outputs": {
     "id": {
       "type": "string",
-      "value": "[resourceId('Microsoft.Network/vpnGateways', parameters('hubvpngwname'))]"
+      "value": "[resourceInfo('hubvpngw').id]"
     },
     "name": {
       "type": "string",
-      "value": "[parameters('hubvpngwname')]"
+      "value": "[resourceInfo('hubvpngw').name]"
     },
     "gwpublicip": {
       "type": "string",

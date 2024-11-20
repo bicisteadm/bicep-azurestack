@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "9083037087094902173"
+      "templateHash": "8435637391024934012"
     }
   },
   "parameters": {
@@ -95,10 +95,6 @@
       }
     }
   },
-  "variables": {
-    "lockName": "[format('{0}-lck', parameters('name'))]",
-    "diagnosticsName": "[format('{0}-dgs', parameters('name'))]"
-  },
   "resources": {
     "logAnalyticsWorkspace": {
       "type": "Microsoft.OperationalInsights/workspaces",
@@ -119,13 +115,13 @@
       },
       "type": "Microsoft.OperationsManagement/solutions",
       "apiVersion": "2015-11-01-preview",
-      "name": "[format('{0}({1})', parameters('solutions')[copyIndex()].name, parameters('name'))]",
+      "name": "[format('{0}({1})', parameters('solutions')[copyIndex()].name, resourceInfo('logAnalyticsWorkspace').name)]",
       "location": "[parameters('location')]",
       "properties": {
-        "workspaceResourceId": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('name'))]"
+        "workspaceResourceId": "[resourceInfo('logAnalyticsWorkspace').id]"
       },
       "plan": {
-        "name": "[format('{0}({1})', parameters('solutions')[copyIndex()].name, parameters('name'))]",
+        "name": "[format('{0}({1})', parameters('solutions')[copyIndex()].name, resourceInfo('logAnalyticsWorkspace').name)]",
         "product": "[parameters('solutions')[copyIndex()].product]",
         "publisher": "[parameters('solutions')[copyIndex()].publisher]",
         "promotionCode": "[parameters('solutions')[copyIndex()].promotionCode]"
@@ -165,7 +161,7 @@
       "type": "Microsoft.Authorization/locks",
       "apiVersion": "2016-09-01",
       "scope": "[format('Microsoft.OperationalInsights/workspaces/{0}', parameters('name'))]",
-      "name": "[variables('lockName')]",
+      "name": "[format('{0}-lck', resourceInfo('logAnalyticsWorkspace').name)]",
       "properties": {
         "level": "CanNotDelete"
       },
@@ -178,9 +174,9 @@
       "type": "Microsoft.Insights/diagnosticSettings",
       "apiVersion": "2017-05-01-preview",
       "scope": "[format('Microsoft.OperationalInsights/workspaces/{0}', parameters('name'))]",
-      "name": "[variables('diagnosticsName')]",
+      "name": "[format('{0}-dgs', resourceInfo('logAnalyticsWorkspace').name)]",
       "properties": {
-        "workspaceId": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('name'))]",
+        "workspaceId": "[resourceInfo('logAnalyticsWorkspace').id]",
         "storageAccountId": "[resourceId(parameters('diagnosticStorageAccountResourceGroup'), 'Microsoft.Storage/storageAccounts', parameters('diagnosticStorageAccountName'))]",
         "logs": [
           {

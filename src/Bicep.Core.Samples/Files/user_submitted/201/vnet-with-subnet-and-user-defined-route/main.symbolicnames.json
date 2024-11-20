@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "9223789487664611151"
+      "templateHash": "7074949403301759607"
     }
   },
   "parameters": {
@@ -101,7 +101,7 @@
             "properties": {
               "addressPrefix": "[parameters('subnetaddressPrefix')]",
               "routeTable": {
-                "id": "[resourceId('Microsoft.Network/routeTables', parameters('udrName'))]"
+                "id": "[resourceInfo('udr').id]"
               },
               "networkSecurityGroup": {
                 "properties": {

@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "7540302005305677536"
+      "templateHash": "8180531470284686954"
     }
   },
   "parameters": {
@@ -78,7 +78,7 @@
   "outputs": {
     "id": {
       "type": "string",
-      "value": "[resourceId('Microsoft.Network/vpnSites', parameters('vpnsitename'))]"
+      "value": "[resourceInfo('vpnsite').id]"
     }
   }
 }

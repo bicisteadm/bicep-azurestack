@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "3759677130320545448"
+      "templateHash": "8182372020814473896"
     }
   },
   "parameters": {
@@ -57,7 +57,7 @@
     "eventHub": {
       "type": "Microsoft.EventHub/namespaces/eventhubs",
       "apiVersion": "2017-04-01",
-      "name": "[format('{0}/{1}', parameters('namespaceName'), parameters('eventHubName'))]",
+      "name": "[format('{0}/{1}', resourceInfo('namespace').name, parameters('eventHubName'))]",
       "properties": {},
       "dependsOn": [
         "namespace"
@@ -66,7 +66,7 @@
     "consumerGroup": {
       "type": "Microsoft.EventHub/namespaces/eventhubs/consumergroups",
       "apiVersion": "2017-04-01",
-      "name": "[format('{0}/{1}', format('{0}/{1}', parameters('namespaceName'), parameters('eventHubName')), parameters('consumerGroupName'))]",
+      "name": "[format('{0}/{1}', resourceInfo('eventHub').name, parameters('consumerGroupName'))]",
       "properties": {},
       "dependsOn": [
         "eventHub"

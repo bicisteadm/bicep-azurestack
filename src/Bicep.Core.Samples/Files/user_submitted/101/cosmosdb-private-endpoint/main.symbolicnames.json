@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "10525684588352808941"
+      "templateHash": "9788831765778571211"
     }
   },
   "parameters": {
@@ -50,7 +50,7 @@
     "subNet": {
       "type": "Microsoft.Network/virtualNetworks/subnets",
       "apiVersion": "2020-06-01",
-      "name": "[format('{0}/default', parameters('virtualNetworkName'))]",
+      "name": "[format('{0}/default', resourceInfo('virtualNetwork').name)]",
       "properties": {
         "addressPrefix": "172.20.0.0/24",
         "privateEndpointNetworkPolicies": "Disabled",
@@ -110,13 +110,13 @@
       "location": "[parameters('location')]",
       "properties": {
         "subnet": {
-          "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', split(format('{0}/default', parameters('virtualNetworkName')), '/')[0], split(format('{0}/default', parameters('virtualNetworkName')), '/')[1])]"
+          "id": "[resourceInfo('subNet').id]"
         },
         "privateLinkServiceConnections": [
           {
             "name": "MyConnection",
             "properties": {
-              "privateLinkServiceId": "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('accountName'))]",
+              "privateLinkServiceId": "[resourceInfo('databaseAccount').id]",
               "groupIds": [
                 "Sql"
               ]

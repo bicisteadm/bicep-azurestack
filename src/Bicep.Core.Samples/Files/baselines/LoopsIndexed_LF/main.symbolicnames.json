@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "8689018216835792705"
+      "templateHash": "3242652188629957200"
     }
   },
   "parameters": {
@@ -220,7 +220,7 @@
       "properties": {
         "resolutionVirtualNetworks": [
           {
-            "id": "[resourceId('Microsoft.Network/virtualNetworks', format('{0}-{1}', variables('vnetConfigurations')[add(parameters('index'), 1)].name, add(parameters('index'), 1)))]"
+            "id": "[resourceInfo(format('vnets[{0}]', add(parameters('index'), 1))).id]"
           }
         ]
       },
@@ -236,10 +236,10 @@
       "properties": {
         "resolutionVirtualNetworks": [
           {
-            "id": "[resourceId('Microsoft.Network/virtualNetworks', format('{0}-{1}', variables('vnetConfigurations')[sub(parameters('index'), 1)].name, sub(parameters('index'), 1)))]"
+            "id": "[resourceInfo(format('vnets[{0}]', sub(parameters('index'), 1))).id]"
           },
           {
-            "id": "[resourceId('Microsoft.Network/virtualNetworks', format('{0}-{1}', variables('vnetConfigurations')[mul(parameters('index'), 2)].name, mul(parameters('index'), 2)))]"
+            "id": "[resourceInfo(format('vnets[{0}]', mul(parameters('index'), 2))).id]"
           }
         ]
       },
@@ -694,19 +694,19 @@
     },
     "indexedCollectionName": {
       "type": "string",
-      "value": "[format('{0}-collection-{1}-{2}', parameters('name'), parameters('accounts')[parameters('index')].name, parameters('index'))]"
+      "value": "[resourceInfo(format('storageAccounts[{0}]', parameters('index'))).name]"
     },
     "indexedCollectionId": {
       "type": "string",
-      "value": "[resourceId('Microsoft.Storage/storageAccounts', format('{0}-collection-{1}-{2}', parameters('name'), parameters('accounts')[parameters('index')].name, parameters('index')))]"
+      "value": "[resourceInfo(format('storageAccounts[{0}]', parameters('index'))).id]"
     },
     "indexedCollectionType": {
       "type": "string",
-      "value": "Microsoft.Storage/storageAccounts"
+      "value": "[resourceInfo(format('storageAccounts[{0}]', parameters('index'))).type]"
     },
     "indexedCollectionVersion": {
       "type": "string",
-      "value": "2019-06-01"
+      "value": "[reference(format('storageAccounts[{0}]', parameters('index')), '2019-06-01', 'full').apiVersion]"
     },
     "indexedCollectionIdentity": {
       "type": "object",
@@ -733,19 +733,19 @@
     },
     "existingIndexedResourceName": {
       "type": "string",
-      "value": "[format('{0}-existing-{1}-{2}', parameters('name'), parameters('accounts')[mul(parameters('index'), 0)].name, mul(parameters('index'), 0))]"
+      "value": "[resourceInfo(format('existingStorageAccounts[{0}]', mul(parameters('index'), 0))).name]"
     },
     "existingIndexedResourceId": {
       "type": "string",
-      "value": "[resourceId('Microsoft.Storage/storageAccounts', format('{0}-existing-{1}-{2}', parameters('name'), parameters('accounts')[mul(parameters('index'), 1)].name, mul(parameters('index'), 1)))]"
+      "value": "[resourceInfo(format('existingStorageAccounts[{0}]', mul(parameters('index'), 1))).id]"
     },
     "existingIndexedResourceType": {
       "type": "string",
-      "value": "Microsoft.Storage/storageAccounts"
+      "value": "[resourceInfo(format('existingStorageAccounts[{0}]', add(parameters('index'), 2))).type]"
     },
     "existingIndexedResourceApiVersion": {
       "type": "string",
-      "value": "2019-06-01"
+      "value": "[reference(format('existingStorageAccounts[{0}]', sub(parameters('index'), 7)), '2019-06-01', 'full').apiVersion]"
     },
     "existingIndexedResourceLocation": {
       "type": "string",

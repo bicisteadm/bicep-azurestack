@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "2367135342684370459"
+      "templateHash": "1874488112897916096"
     }
   },
   "parameters": {
@@ -85,9 +85,9 @@
     "namespaceVirtualNetworkRule": {
       "type": "Microsoft.ServiceBus/namespaces/virtualnetworkrules",
       "apiVersion": "2018-01-01-preview",
-      "name": "[format('{0}/{1}', parameters('serviceBusNamespaceName'), parameters('virtualNetworkName'))]",
+      "name": "[format('{0}/{1}', resourceInfo('serviceBusNamespace').name, resourceInfo('virtualNetwork').name)]",
       "properties": {
-        "virtualNetworkSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets/', parameters('virtualNetworkName'), parameters('subnetName'))]"
+        "virtualNetworkSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets/', resourceInfo('virtualNetwork').name, parameters('subnetName'))]"
       },
       "dependsOn": [
         "serviceBusNamespace",

@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "16040791740028672148"
+      "templateHash": "13017698204578108256"
     }
   },
   "parameters": {
@@ -244,7 +244,7 @@
       "location": "[parameters('location')]",
       "kind": "app",
       "properties": {
-        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverFarmName'))]"
+        "serverFarmId": "[resourceInfo('serverFarm').id]"
       },
       "dependsOn": [
         "serverFarm"
@@ -257,7 +257,7 @@
       "location": "[parameters('location')]",
       "kind": "app",
       "properties": {
-        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverFarmName'))]"
+        "serverFarmId": "[resourceInfo('serverFarm').id]"
       },
       "dependsOn": [
         "serverFarm"
@@ -300,9 +300,9 @@
     "webApp1Binding": {
       "type": "Microsoft.Web/sites/hostNameBindings",
       "apiVersion": "2019-08-01",
-      "name": "[format('{0}/{1}', parameters('site1_Name'), format('{0}{1}', parameters('site1_Name'), variables('webapp_dns_name')))]",
+      "name": "[format('{0}/{1}', parameters('site1_Name'), format('{0}{1}', resourceInfo('webApp1').name, variables('webapp_dns_name')))]",
       "properties": {
-        "siteName": "[parameters('site1_Name')]",
+        "siteName": "[resourceInfo('webApp1').name]",
         "hostNameType": "Verified"
       },
       "dependsOn": [
@@ -312,9 +312,9 @@
     "webApp2Binding": {
       "type": "Microsoft.Web/sites/hostNameBindings",
       "apiVersion": "2019-08-01",
-      "name": "[format('{0}/{1}', parameters('site2_Name'), format('{0}{1}', parameters('site2_Name'), variables('webapp_dns_name')))]",
+      "name": "[format('{0}/{1}', parameters('site2_Name'), format('{0}{1}', resourceInfo('webApp2').name, variables('webapp_dns_name')))]",
       "properties": {
-        "siteName": "[parameters('site2_Name')]",
+        "siteName": "[resourceInfo('webApp2').name]",
         "hostNameType": "Verified"
       },
       "dependsOn": [
@@ -326,7 +326,7 @@
       "apiVersion": "2020-06-01",
       "name": "[format('{0}/{1}', parameters('site2_Name'), 'virtualNetwork')]",
       "properties": {
-        "subnetResourceId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnet2Name'))]"
+        "subnetResourceId": "[resourceInfo('subnet2').id]"
       },
       "dependsOn": [
         "subnet2",
@@ -340,13 +340,13 @@
       "location": "[parameters('location')]",
       "properties": {
         "subnet": {
-          "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnet1Name'))]"
+          "id": "[resourceInfo('subnet1').id]"
         },
         "privateLinkServiceConnections": [
           {
             "name": "[parameters('privateLinkConnectionName')]",
             "properties": {
-              "privateLinkServiceId": "[resourceId('Microsoft.Web/sites', parameters('site1_Name'))]",
+              "privateLinkServiceId": "[resourceInfo('webApp1').id]",
               "groupIds": [
                 "sites"
               ]
@@ -371,12 +371,12 @@
     "privateDnsZoneLink": {
       "type": "Microsoft.Network/privateDnsZones/virtualNetworkLinks",
       "apiVersion": "2018-09-01",
-      "name": "[format('{0}/{1}', variables('privateDNSZoneName'), format('{0}-link', variables('privateDNSZoneName')))]",
+      "name": "[format('{0}/{1}', variables('privateDNSZoneName'), format('{0}-link', resourceInfo('privateDnsZones').name))]",
       "location": "global",
       "properties": {
         "registrationEnabled": false,
         "virtualNetwork": {
-          "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]"
+          "id": "[resourceInfo('virtualNetwork').id]"
         }
       },
       "dependsOn": [
@@ -393,7 +393,7 @@
           {
             "name": "config1",
             "properties": {
-              "privateDnsZoneId": "[resourceId('Microsoft.Network/privateDnsZones', variables('privateDNSZoneName'))]"
+              "privateDnsZoneId": "[resourceInfo('privateDnsZones').id]"
             }
           }
         ]

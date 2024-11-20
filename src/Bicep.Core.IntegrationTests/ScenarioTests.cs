@@ -2928,7 +2928,7 @@ output bar string = server2::firewall.properties.startIpAddress
         result.Template.Should().HaveValueAtPath("$.resources['server2::db'].name", "[format('{0}/{1}', 'sql', 'cool-database2')]");
         result.Template.Should().HaveValueAtPath("$.resources['server2::firewall'].name", "[format('{0}/{1}', 'sql', 'test')]");
 
-        result.Template.Should().HaveValueAtPath("$.outputs['foo'].value", "test");
+        result.Template.Should().HaveValueAtPath("$.outputs['foo'].value", "[resourceInfo('server2::firewall').name]");
         result.Template.Should().HaveValueAtPath("$.outputs['bar'].value", "[reference('server2::firewall').startIpAddress]");
     }
 
@@ -4166,6 +4166,9 @@ var _subnets = {
 
 output aksRouteTable string = _subnets.aksPoolSys.routeTable
 "));
+
+        // verify the variable has been inlined
+        result.Template.Should().NotHaveValueAtPath("$.variables['_subnets']");
 
         var evaluated = TemplateEvaluator.Evaluate(result.Template).ToJToken();
         evaluated.Should().HaveValueAtPath("$.outputs['aksRouteTable'].value", $"/subscriptions/{Guid.Empty}/resourceGroups/DummyResourceGroup/providers/Microsoft.Network/routeTables/aksRouteTable");

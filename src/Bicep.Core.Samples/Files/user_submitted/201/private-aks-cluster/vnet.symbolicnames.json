@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "3073617131340510178"
+      "templateHash": "3363210639305844971"
     }
   },
   "parameters": {
@@ -69,10 +69,7 @@
   "variables": {
     "bastionSubnetName": "AzureBastionSubnet",
     "bastionSubnetNsgName": "[format('{0}Nsg', variables('bastionSubnetName'))]",
-    "bastionSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), variables('bastionSubnetName'))]",
-    "vmSubnetNsgName": "[format('{0}Nsg', parameters('vmSubnetName'))]",
-    "vmSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('vmSubnetName'))]",
-    "aksSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('aksSubnetName'))]"
+    "vmSubnetNsgName": "[format('{0}Nsg', parameters('vmSubnetName'))]"
   },
   "resources": {
     "vmSubnetNsg": {
@@ -253,7 +250,7 @@
             "properties": {
               "addressPrefix": "[parameters('vmSubnetAddressPrefix')]",
               "networkSecurityGroup": {
-                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('vmSubnetNsgName'))]"
+                "id": "[resourceInfo('vmSubnetNsg').id]"
               },
               "privateEndpointNetworkPolicies": "Disabled",
               "privateLinkServiceNetworkPolicies": "Enabled"
@@ -264,7 +261,7 @@
             "properties": {
               "addressPrefix": "[parameters('bastionSubnetAddressPrefix')]",
               "networkSecurityGroup": {
-                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('bastionSubnetNsgName'))]"
+                "id": "[resourceInfo('bastionSubnetNsg').id]"
               }
             }
           }
@@ -308,19 +305,19 @@
   "outputs": {
     "virtualNetworkResourceId": {
       "type": "string",
-      "value": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]"
+      "value": "[resourceInfo('virtualNetwork').id]"
     },
     "bastionSubnetId": {
       "type": "string",
-      "value": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), variables('bastionSubnetName'))]"
+      "value": "[resourceInfo('bastionSubnet').id]"
     },
     "aksSubnetId": {
       "type": "string",
-      "value": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('aksSubnetName'))]"
+      "value": "[resourceInfo('aksSubnet').id]"
     },
     "vmSubnetId": {
       "type": "string",
-      "value": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('vmSubnetName'))]"
+      "value": "[resourceInfo('vmSubnet').id]"
     }
   }
 }

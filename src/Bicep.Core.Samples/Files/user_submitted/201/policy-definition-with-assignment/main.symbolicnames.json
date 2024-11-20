@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "8392065895980596455"
+      "templateHash": "12214011856554748547"
     }
   },
   "parameters": {
@@ -73,7 +73,7 @@
       "apiVersion": "2020-09-01",
       "name": "Resource-location-restriction",
       "properties": {
-        "policyDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/policyDefinitions', 'custom-allowed-location')]",
+        "policyDefinitionId": "[resourceInfo('locationPolicyDefinition').id]",
         "displayName": "Restrict location for Azure resources",
         "description": "Policy will either Audit or Deny resources being deployed in other locations",
         "parameters": {

@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "1852734786185809313"
+      "templateHash": "18322458533967493240"
     }
   },
   "parameters": {
@@ -49,7 +49,6 @@
     }
   },
   "variables": {
-    "subnetRef": "[format('{0}/subnets/{1}', resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName')), variables('subnetName'))]",
     "addressPrefix": "20.0.0.0/16",
     "subnetName": "Subnet01",
     "subnetPrefix": "20.0.0.0/24",
@@ -125,7 +124,7 @@
             "type": "VirtualMachineScaleSets",
             "osType": "Linux",
             "enableAutoScaling": false,
-            "vnetSubnetID": "[variables('subnetRef')]"
+            "vnetSubnetID": "[format('{0}/subnets/{1}', resourceInfo('vn').id, variables('subnetName'))]"
           }
         ],
         "servicePrincipalProfile": {
@@ -145,7 +144,7 @@
   "outputs": {
     "id": {
       "type": "string",
-      "value": "[resourceId('Microsoft.ContainerService/managedClusters', parameters('clusterName'))]"
+      "value": "[resourceInfo('aks').id]"
     },
     "apiServerAddress": {
       "type": "string",

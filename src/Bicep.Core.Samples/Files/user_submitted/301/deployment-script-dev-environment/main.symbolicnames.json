@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "17686006826301587121"
+      "templateHash": "10482482068238384736"
     }
   },
   "parameters": {
@@ -67,7 +67,7 @@
             "_generator": {
               "name": "bicep",
               "version": "dev",
-              "templateHash": "3777321965163730956"
+              "templateHash": "44362815378334232"
             }
           },
           "parameters": {
@@ -133,7 +133,7 @@
             "fileshare": {
               "type": "Microsoft.Storage/storageAccounts/fileServices/shares",
               "apiVersion": "2019-06-01",
-              "name": "[format('{0}/default/{1}', parameters('name'), parameters('fileShareName'))]",
+              "name": "[format('{0}/default/{1}', resourceInfo('storage').name, parameters('fileShareName'))]",
               "dependsOn": [
                 "storage"
               ]
@@ -142,11 +142,11 @@
           "outputs": {
             "resourceId": {
               "type": "string",
-              "value": "[resourceId('Microsoft.Storage/storageAccounts', parameters('name'))]"
+              "value": "[resourceInfo('storage').id]"
             },
             "storageName": {
               "type": "string",
-              "value": "[parameters('name')]"
+              "value": "[resourceInfo('storage').name]"
             },
             "fileShareName": {
               "type": "string",

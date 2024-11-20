@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "12632249060210513106"
+      "templateHash": "8894103917303796309"
     }
   },
   "parameters": {
@@ -146,7 +146,7 @@
             "_generator": {
               "name": "bicep",
               "version": "dev",
-              "templateHash": "17198946721055526437"
+              "templateHash": "17362800602173420259"
             }
           },
           "parameters": {
@@ -194,8 +194,8 @@
             "arrayOutput": {
               "type": "array",
               "value": [
-                "[resourceId('Mock.Rp/mockResource', 'basicblobs')]",
-                "[resourceId('Mock.Rp/mockResource', 'myZone')]"
+                "[resourceInfo('basicStorage').id]",
+                "[resourceInfo('dnsZone').id]"
               ]
             }
           }
@@ -227,7 +227,7 @@
             "_generator": {
               "name": "bicep",
               "version": "dev",
-              "templateHash": "10597432502958414413"
+              "templateHash": "12843666433268220247"
             }
           },
           "parameters": {
@@ -246,7 +246,7 @@
           "outputs": {
             "myResourceId": {
               "type": "string",
-              "value": "[resourceId('Mock.Rp/mockResource', 'mockResource')]"
+              "value": "[resourceInfo('myResource').id]"
             }
           }
         }
@@ -278,7 +278,7 @@
             "_generator": {
               "name": "bicep",
               "version": "dev",
-              "templateHash": "10597432502958414413"
+              "templateHash": "12843666433268220247"
             }
           },
           "parameters": {
@@ -297,7 +297,7 @@
           "outputs": {
             "myResourceId": {
               "type": "string",
-              "value": "[resourceId('Mock.Rp/mockResource', 'mockResource')]"
+              "value": "[resourceInfo('myResource').id]"
             }
           }
         }
@@ -329,7 +329,7 @@
             "_generator": {
               "name": "bicep",
               "version": "dev",
-              "templateHash": "10597432502958414413"
+              "templateHash": "12843666433268220247"
             }
           },
           "parameters": {
@@ -348,7 +348,7 @@
           "outputs": {
             "myResourceId": {
               "type": "string",
-              "value": "[resourceId('Mock.Rp/mockResource', 'mockResource')]"
+              "value": "[resourceInfo('myResource').id]"
             }
           }
         }
@@ -715,7 +715,7 @@
         "mode": "Incremental",
         "parameters": {
           "optionalString": {
-            "value": "[concat(resourceId('Mock.Rp/mockResource', 'harry'), 'optionalWithAllParamsAndManualDependency')]"
+            "value": "[concat(resourceInfo('resWithDependencies').id, 'optionalWithAllParamsAndManualDependency')]"
           },
           "optionalInt": {
             "value": 42
@@ -792,7 +792,7 @@
         "mode": "Incremental",
         "parameters": {
           "optionalString": {
-            "value": "[concat(resourceId('Mock.Rp/mockResource', 'harry'), 'optionalWithAllParamsAndManualDependency')]"
+            "value": "[concat(resourceInfo('resWithDependencies').id, 'optionalWithAllParamsAndManualDependency')]"
           },
           "optionalInt": {
             "value": 42
@@ -890,7 +890,7 @@
             "_generator": {
               "name": "bicep",
               "version": "dev",
-              "templateHash": "17198946721055526437"
+              "templateHash": "17362800602173420259"
             }
           },
           "parameters": {
@@ -938,8 +938,8 @@
             "arrayOutput": {
               "type": "array",
               "value": [
-                "[resourceId('Mock.Rp/mockResource', 'basicblobs')]",
-                "[resourceId('Mock.Rp/mockResource', 'myZone')]"
+                "[resourceInfo('basicStorage').id]",
+                "[resourceInfo('dnsZone').id]"
               ]
             }
           }
@@ -983,7 +983,7 @@
             "_generator": {
               "name": "bicep",
               "version": "dev",
-              "templateHash": "17198946721055526437"
+              "templateHash": "17362800602173420259"
             }
           },
           "parameters": {
@@ -1031,8 +1031,8 @@
             "arrayOutput": {
               "type": "array",
               "value": [
-                "[resourceId('Mock.Rp/mockResource', 'basicblobs')]",
-                "[resourceId('Mock.Rp/mockResource', 'myZone')]"
+                "[resourceInfo('basicStorage').id]",
+                "[resourceInfo('dnsZone').id]"
               ]
             }
           }
@@ -1077,7 +1077,7 @@
             "_generator": {
               "name": "bicep",
               "version": "dev",
-              "templateHash": "17198946721055526437"
+              "templateHash": "17362800602173420259"
             }
           },
           "parameters": {
@@ -1125,8 +1125,8 @@
             "arrayOutput": {
               "type": "array",
               "value": [
-                "[resourceId('Mock.Rp/mockResource', 'basicblobs')]",
-                "[resourceId('Mock.Rp/mockResource', 'myZone')]"
+                "[resourceInfo('basicStorage').id]",
+                "[resourceInfo('dnsZone').id]"
               ]
             }
           }
@@ -1174,7 +1174,7 @@
             "_generator": {
               "name": "bicep",
               "version": "dev",
-              "templateHash": "17198946721055526437"
+              "templateHash": "17362800602173420259"
             }
           },
           "parameters": {
@@ -1222,8 +1222,8 @@
             "arrayOutput": {
               "type": "array",
               "value": [
-                "[resourceId('Mock.Rp/mockResource', 'basicblobs')]",
-                "[resourceId('Mock.Rp/mockResource', 'myZone')]"
+                "[resourceInfo('basicStorage').id]",
+                "[resourceInfo('dnsZone').id]"
               ]
             }
           }
@@ -1271,7 +1271,7 @@
             "_generator": {
               "name": "bicep",
               "version": "dev",
-              "templateHash": "17198946721055526437"
+              "templateHash": "17362800602173420259"
             }
           },
           "parameters": {
@@ -1319,8 +1319,8 @@
             "arrayOutput": {
               "type": "array",
               "value": [
-                "[resourceId('Mock.Rp/mockResource', 'basicblobs')]",
-                "[resourceId('Mock.Rp/mockResource', 'myZone')]"
+                "[resourceInfo('basicStorage').id]",
+                "[resourceInfo('dnsZone').id]"
               ]
             }
           }
@@ -1365,7 +1365,7 @@
             "_generator": {
               "name": "bicep",
               "version": "dev",
-              "templateHash": "17198946721055526437"
+              "templateHash": "17362800602173420259"
             }
           },
           "parameters": {
@@ -1413,8 +1413,8 @@
             "arrayOutput": {
               "type": "array",
               "value": [
-                "[resourceId('Mock.Rp/mockResource', 'basicblobs')]",
-                "[resourceId('Mock.Rp/mockResource', 'myZone')]"
+                "[resourceInfo('basicStorage').id]",
+                "[resourceInfo('dnsZone').id]"
               ]
             }
           }
@@ -1488,7 +1488,7 @@
             "_generator": {
               "name": "bicep",
               "version": "dev",
-              "templateHash": "17198946721055526437"
+              "templateHash": "17362800602173420259"
             }
           },
           "parameters": {
@@ -1536,8 +1536,8 @@
             "arrayOutput": {
               "type": "array",
               "value": [
-                "[resourceId('Mock.Rp/mockResource', 'basicblobs')]",
-                "[resourceId('Mock.Rp/mockResource', 'myZone')]"
+                "[resourceInfo('basicStorage').id]",
+                "[resourceInfo('dnsZone').id]"
               ]
             }
           }
@@ -1612,7 +1612,7 @@
             "_generator": {
               "name": "bicep",
               "version": "dev",
-              "templateHash": "17198946721055526437"
+              "templateHash": "17362800602173420259"
             }
           },
           "parameters": {
@@ -1660,8 +1660,8 @@
             "arrayOutput": {
               "type": "array",
               "value": [
-                "[resourceId('Mock.Rp/mockResource', 'basicblobs')]",
-                "[resourceId('Mock.Rp/mockResource', 'myZone')]"
+                "[resourceInfo('basicStorage').id]",
+                "[resourceInfo('dnsZone').id]"
               ]
             }
           }
@@ -1739,7 +1739,7 @@
             "_generator": {
               "name": "bicep",
               "version": "dev",
-              "templateHash": "17198946721055526437"
+              "templateHash": "17362800602173420259"
             }
           },
           "parameters": {
@@ -1787,8 +1787,8 @@
             "arrayOutput": {
               "type": "array",
               "value": [
-                "[resourceId('Mock.Rp/mockResource', 'basicblobs')]",
-                "[resourceId('Mock.Rp/mockResource', 'myZone')]"
+                "[resourceInfo('basicStorage').id]",
+                "[resourceInfo('dnsZone').id]"
               ]
             }
           }
@@ -1808,7 +1808,7 @@
           "secureStringParam1": {
             "reference": {
               "keyVault": {
-                "id": "[resourceId('Microsoft.KeyVault/vaults', 'testkeyvault')]"
+                "id": "[resourceInfo('kv').id]"
               },
               "secretName": "mySecret"
             }
@@ -1816,7 +1816,7 @@
           "secureStringParam2": {
             "reference": {
               "keyVault": {
-                "id": "[resourceId('Microsoft.KeyVault/vaults', 'testkeyvault')]"
+                "id": "[resourceInfo('kv').id]"
               },
               "secretName": "mySecret",
               "secretVersion": "secretVersion"
@@ -1869,7 +1869,7 @@
           "secureStringParam1": {
             "reference": {
               "keyVault": {
-                "id": "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, 'otherGroup'), 'Microsoft.KeyVault/vaults', 'testkeyvault')]"
+                "id": "[resourceInfo('scopedKv').id]"
               },
               "secretName": "mySecret"
             }
@@ -1877,7 +1877,7 @@
           "secureStringParam2": {
             "reference": {
               "keyVault": {
-                "id": "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, 'otherGroup'), 'Microsoft.KeyVault/vaults', 'testkeyvault')]"
+                "id": "[resourceInfo('scopedKv').id]"
               },
               "secretName": "mySecret",
               "secretVersion": "secretVersion"
@@ -1934,7 +1934,7 @@
           "secureStringParam1": {
             "reference": {
               "keyVault": {
-                "id": "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', variables('vaults')[copyIndex()].vaultSub, variables('vaults')[copyIndex()].vaultRG), 'Microsoft.KeyVault/vaults', variables('vaults')[copyIndex()].vaultName)]"
+                "id": "[resourceInfo(format('loopedKv[{0}]', copyIndex())).id]"
               },
               "secretName": "[variables('secrets')[copyIndex()].name]"
             }
@@ -1942,7 +1942,7 @@
           "secureStringParam2": {
             "reference": {
               "keyVault": {
-                "id": "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', variables('vaults')[copyIndex()].vaultSub, variables('vaults')[copyIndex()].vaultRG), 'Microsoft.KeyVault/vaults', variables('vaults')[copyIndex()].vaultName)]"
+                "id": "[resourceInfo(format('loopedKv[{0}]', copyIndex())).id]"
               },
               "secretName": "[variables('secrets')[copyIndex()].name]",
               "secretVersion": "[variables('secrets')[copyIndex()].version]"
@@ -1993,8 +1993,8 @@
         },
         "mode": "Incremental",
         "parameters": {
-          "secureStringParam1": "[if(true(), createObject('reference', createObject('keyVault', createObject('id', resourceId('Microsoft.KeyVault/vaults', 'testkeyvault')), 'secretName', 'mySecret')), createObject('value', 'notTrue'))]",
-          "secureStringParam2": "[if(true(), if(false(), createObject('value', 'false'), createObject('reference', createObject('keyVault', createObject('id', resourceId('Microsoft.KeyVault/vaults', 'testkeyvault')), 'secretName', 'mySecret', 'secretVersion', 'secretVersion'))), createObject('value', 'notTrue'))]"
+          "secureStringParam1": "[if(true(), createObject('reference', createObject('keyVault', createObject('id', resourceInfo('kv').id), 'secretName', 'mySecret')), createObject('value', 'notTrue'))]",
+          "secureStringParam2": "[if(true(), if(false(), createObject('value', 'false'), createObject('reference', createObject('keyVault', createObject('id', resourceInfo('kv').id), 'secretName', 'mySecret', 'secretVersion', 'secretVersion'))), createObject('value', 'notTrue'))]"
         },
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
@@ -2137,7 +2137,7 @@
             "_generator": {
               "name": "bicep",
               "version": "dev",
-              "templateHash": "17198946721055526437"
+              "templateHash": "17362800602173420259"
             }
           },
           "parameters": {
@@ -2185,8 +2185,8 @@
             "arrayOutput": {
               "type": "array",
               "value": [
-                "[resourceId('Mock.Rp/mockResource', 'basicblobs')]",
-                "[resourceId('Mock.Rp/mockResource', 'myZone')]"
+                "[resourceInfo('basicStorage').id]",
+                "[resourceInfo('dnsZone').id]"
               ]
             }
           }

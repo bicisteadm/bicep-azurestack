@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "2398472920428452257"
+      "templateHash": "8985104751486952238"
     }
   },
   "parameters": {
@@ -42,7 +42,7 @@
         "platformFaultDomainCount": 2,
         "platformUpdateDomainCount": 5,
         "proximityPlacementGroup": {
-          "id": "[resourceId('Microsoft.Compute/proximityPlacementGroups', 'Zone1')]"
+          "id": "[resourceInfo('ppg1').id]"
         }
       },
       "sku": {
@@ -74,7 +74,7 @@
             "_generator": {
               "name": "bicep",
               "version": "dev",
-              "templateHash": "8746852112621394359"
+              "templateHash": "9952778610909069353"
             }
           },
           "parameters": {
@@ -154,7 +154,7 @@
                     "properties": {
                       "addressPrefix": "10.0.0.0/24",
                       "networkSecurityGroup": {
-                        "id": "[resourceId('Microsoft.Network/networkSecurityGroups', 'demo-nsg')]"
+                        "id": "[resourceInfo('nsg').id]"
                       }
                     }
                   }
@@ -168,7 +168,7 @@
           "outputs": {
             "vnetId": {
               "type": "string",
-              "value": "[resourceId('Microsoft.Network/virtualNetworks', 'demo-vnet')]"
+              "value": "[resourceInfo('vnet').id]"
             }
           }
         }
@@ -188,7 +188,7 @@
             "value": "[parameters('adminSshKey')]"
           },
           "proximityPlacementGroupId": {
-            "value": "[resourceId('Microsoft.Compute/proximityPlacementGroups', 'Zone1')]"
+            "value": "[resourceInfo('ppg1').id]"
           },
           "subnetId": {
             "value": "[format('{0}/subnets/Default', reference('network').outputs.vnetId.value)]"
@@ -208,7 +208,7 @@
             "_generator": {
               "name": "bicep",
               "version": "dev",
-              "templateHash": "7195522833059485729"
+              "templateHash": "10665074827236819330"
             }
           },
           "parameters": {
@@ -268,7 +268,7 @@
                         "id": "[parameters('subnetId')]"
                       },
                       "publicIPAddress": {
-                        "id": "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-pip', parameters('vmName')))]"
+                        "id": "[resourceInfo('pip').id]"
                       }
                     }
                   }
@@ -290,7 +290,7 @@
                 "networkProfile": {
                   "networkInterfaces": [
                     {
-                      "id": "[resourceId('Microsoft.Network/networkInterfaces', format('{0}-nic', parameters('vmName')))]"
+                      "id": "[resourceInfo('nic').id]"
                     }
                   ]
                 },
@@ -357,7 +357,7 @@
             "value": "[parameters('adminSshKey')]"
           },
           "availabilitySetId": {
-            "value": "[resourceId('Microsoft.Compute/availabilitySets', 'as1')]"
+            "value": "[resourceInfo('as1').id]"
           },
           "subnetId": {
             "value": "[format('{0}/subnets/Default', reference('network').outputs.vnetId.value)]"
@@ -374,7 +374,7 @@
             "_generator": {
               "name": "bicep",
               "version": "dev",
-              "templateHash": "12164485911764988402"
+              "templateHash": "5582795529600775647"
             }
           },
           "parameters": {
@@ -430,7 +430,7 @@
                 "networkProfile": {
                   "networkInterfaces": [
                     {
-                      "id": "[resourceId('Microsoft.Network/networkInterfaces', format('{0}-nic', parameters('vmName')))]"
+                      "id": "[resourceInfo('nic').id]"
                     }
                   ]
                 },
@@ -491,7 +491,7 @@
             "value": "[parameters('adminSshKey')]"
           },
           "availabilitySetId": {
-            "value": "[resourceId('Microsoft.Compute/availabilitySets', 'as1')]"
+            "value": "[resourceInfo('as1').id]"
           },
           "subnetId": {
             "value": "[format('{0}/subnets/Default', reference('network').outputs.vnetId.value)]"
@@ -508,7 +508,7 @@
             "_generator": {
               "name": "bicep",
               "version": "dev",
-              "templateHash": "12164485911764988402"
+              "templateHash": "5582795529600775647"
             }
           },
           "parameters": {
@@ -564,7 +564,7 @@
                 "networkProfile": {
                   "networkInterfaces": [
                     {
-                      "id": "[resourceId('Microsoft.Network/networkInterfaces', format('{0}-nic', parameters('vmName')))]"
+                      "id": "[resourceInfo('nic').id]"
                     }
                   ]
                 },

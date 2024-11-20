@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "12969831666120815057"
+      "templateHash": "11405158581331307546"
     }
   },
   "parameters": {
@@ -51,11 +51,11 @@
   "outputs": {
     "actionGroupId": {
       "type": "string",
-      "value": "[resourceId('microsoft.insights/actionGroups', parameters('actionGroupName'))]"
+      "value": "[resourceInfo('actionGroup').id]"
     },
     "actionGroupName": {
       "type": "string",
-      "value": "[parameters('actionGroupName')]"
+      "value": "[resourceInfo('actionGroup').name]"
     }
   }
 }

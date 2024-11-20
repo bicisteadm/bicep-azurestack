@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "9662584287938993929"
+      "templateHash": "8895951883823507737"
     }
   },
   "parameters": {
@@ -88,7 +88,7 @@
     "subnet": {
       "type": "Microsoft.Network/virtualNetworks/subnets",
       "apiVersion": "2020-06-01",
-      "name": "[format('{0}/{1}', parameters('virtualNetworkName'), parameters('subnetName'))]",
+      "name": "[format('{0}/{1}', resourceInfo('virtualNetwork').name, parameters('subnetName'))]",
       "properties": {
         "addressPrefix": "[parameters('subnetCIDR')]",
         "privateEndpointNetworkPolicies": "Disabled",
@@ -151,7 +151,7 @@
             "hostType": "Repository"
           }
         ],
-        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverFarmName'))]"
+        "serverFarmId": "[resourceInfo('serverFarm').id]"
       },
       "dependsOn": [
         "serverFarm"
@@ -160,9 +160,9 @@
     "hostnameBinding": {
       "type": "Microsoft.Web/sites/hostNameBindings",
       "apiVersion": "2020-06-01",
-      "name": "[format('{0}/{1}{2}', parameters('websiteName'), parameters('websiteName'), parameters('websiteDNSName'))]",
+      "name": "[format('{0}/{1}{2}', resourceInfo('website').name, resourceInfo('website').name, parameters('websiteDNSName'))]",
       "properties": {
-        "siteName": "[parameters('websiteName')]",
+        "siteName": "[resourceInfo('website').name]",
         "hostNameType": "Verified"
       },
       "dependsOn": [
@@ -176,13 +176,13 @@
       "location": "[parameters('location')]",
       "properties": {
         "subnet": {
-          "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', split(format('{0}/{1}', parameters('virtualNetworkName'), parameters('subnetName')), '/')[0], split(format('{0}/{1}', parameters('virtualNetworkName'), parameters('subnetName')), '/')[1])]"
+          "id": "[resourceInfo('subnet').id]"
         },
         "privateLinkServiceConnections": [
           {
             "name": "[parameters('privateLinkConnectionName')]",
             "properties": {
-              "privateLinkServiceId": "[resourceId('Microsoft.Web/sites', parameters('websiteName'))]",
+              "privateLinkServiceId": "[resourceInfo('website').id]",
               "groupIds": [
                 "sites"
               ]
@@ -204,12 +204,12 @@
     "virtualNetworkLink": {
       "type": "Microsoft.Network/privateDnsZones/virtualNetworkLinks",
       "apiVersion": "2020-06-01",
-      "name": "[format('{0}/{1}-link', parameters('privateDNSZoneName'), parameters('privateDNSZoneName'))]",
+      "name": "[format('{0}/{1}-link', resourceInfo('privateDNSZone').name, resourceInfo('privateDNSZone').name)]",
       "location": "global",
       "properties": {
         "registrationEnabled": false,
         "virtualNetwork": {
-          "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]"
+          "id": "[resourceInfo('virtualNetwork').id]"
         }
       },
       "dependsOn": [
@@ -220,13 +220,13 @@
     "privateDNSZoneGroup": {
       "type": "Microsoft.Network/privateEndpoints/privateDnsZoneGroups",
       "apiVersion": "2020-06-01",
-      "name": "[format('{0}/dnsgroupname', parameters('privateEndpointName'))]",
+      "name": "[format('{0}/dnsgroupname', resourceInfo('privateEndpoint').name)]",
       "properties": {
         "privateDnsZoneConfigs": [
           {
             "name": "config1",
             "properties": {
-              "privateDnsZoneId": "[resourceId('Microsoft.Network/privateDnsZones', parameters('privateDNSZoneName'))]"
+              "privateDnsZoneId": "[resourceInfo('privateDNSZone').id]"
             }
           }
         ]

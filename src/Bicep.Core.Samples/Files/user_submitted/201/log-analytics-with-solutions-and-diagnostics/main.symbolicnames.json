@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "11248353820053669334"
+      "templateHash": "11629176380676710489"
     }
   },
   "parameters": {
@@ -57,7 +57,7 @@
       "scope": "[format('Microsoft.OperationalInsights/workspaces/{0}', parameters('logAnalyticsWorkspaceName'))]",
       "name": "diagnosticSettings",
       "properties": {
-        "workspaceId": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('logAnalyticsWorkspaceName'))]",
+        "workspaceId": "[resourceInfo('logAnalyticsWorkspace').id]",
         "logs": [
           {
             "category": "Audit",
@@ -89,7 +89,7 @@
       "name": "[variables('vmInsights').name]",
       "location": "[parameters('location')]",
       "properties": {
-        "workspaceResourceId": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('logAnalyticsWorkspaceName'))]"
+        "workspaceResourceId": "[resourceInfo('logAnalyticsWorkspace').id]"
       },
       "plan": {
         "name": "[variables('vmInsights').name]",
@@ -107,7 +107,7 @@
       "name": "[variables('containerInsights').name]",
       "location": "[parameters('location')]",
       "properties": {
-        "workspaceResourceId": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('logAnalyticsWorkspaceName'))]"
+        "workspaceResourceId": "[resourceInfo('logAnalyticsWorkspace').id]"
       },
       "plan": {
         "name": "[variables('containerInsights').name]",

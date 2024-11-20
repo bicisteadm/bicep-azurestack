@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "6044056607168171036"
+      "templateHash": "14067812404132238404"
     }
   },
   "parameters": {
@@ -100,9 +100,9 @@
     "galleryass": {
       "type": "Microsoft.Authorization/roleAssignments",
       "apiVersion": "2020-04-01-preview",
-      "name": "[guid(resourceGroup().id, resourceId('Microsoft.Authorization/roleDefinitions', guid(parameters('roleNameGalleryImage'))), parameters('principalId'))]",
+      "name": "[guid(resourceGroup().id, resourceInfo('gallerydef').id, parameters('principalId'))]",
       "properties": {
-        "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', guid(parameters('roleNameGalleryImage')))]",
+        "roleDefinitionId": "[resourceInfo('gallerydef').id]",
         "principalId": "[parameters('principalId')]"
       },
       "dependsOn": [

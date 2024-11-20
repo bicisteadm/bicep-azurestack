@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "dev",
-      "templateHash": "16407625085363720986"
+      "templateHash": "16201572294664305995"
     }
   },
   "parameters": {
@@ -158,7 +158,7 @@
                   "name": "[format('ipconfig-{0}', parameters('containerSubnetName'))]",
                   "properties": {
                     "subnet": {
-                      "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('existingVNETName'), parameters('containerSubnetName'))]"
+                      "id": "[resourceInfo('containerSubnet').id]"
                     }
                   }
                 }
@@ -175,7 +175,7 @@
       "type": "Microsoft.Authorization/roleAssignments",
       "apiVersion": "2020-04-01-preview",
       "scope": "[format('Microsoft.Network/networkProfiles/{0}', variables('networkProfileName'))]",
-      "name": "[guid(variables('networkRoleDefinitionId'), parameters('azureContainerInstanceOID'), variables('networkProfileName'))]",
+      "name": "[guid(variables('networkRoleDefinitionId'), parameters('azureContainerInstanceOID'), resourceInfo('networkProfile').name)]",
       "properties": {
         "roleDefinitionId": "[variables('networkRoleDefinitionId')]",
         "principalId": "[parameters('azureContainerInstanceOID')]"
@@ -198,7 +198,7 @@
       "type": "Microsoft.Authorization/roleAssignments",
       "apiVersion": "2020-04-01-preview",
       "scope": "[format('Microsoft.Relay/namespaces/{0}', parameters('relayNamespaceName'))]",
-      "name": "[guid(variables('contributorRoleDefinitionId'), parameters('azureContainerInstanceOID'), parameters('relayNamespaceName'))]",
+      "name": "[guid(variables('contributorRoleDefinitionId'), parameters('azureContainerInstanceOID'), resourceInfo('relayNamespace').name)]",
       "properties": {
         "roleDefinitionId": "[variables('contributorRoleDefinitionId')]",
         "principalId": "[parameters('azureContainerInstanceOID')]"
@@ -251,7 +251,7 @@
           {
             "name": "[parameters('privateEndpointName')]",
             "properties": {
-              "privateLinkServiceId": "[resourceId('Microsoft.Relay/namespaces', parameters('relayNamespaceName'))]",
+              "privateLinkServiceId": "[resourceInfo('relayNamespace').id]",
               "groupIds": [
                 "namespace"
               ]
@@ -259,7 +259,7 @@
           }
         ],
         "subnet": {
-          "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('existingVNETName'), parameters('relaySubnetName'))]"
+          "id": "[resourceInfo('relaySubnet').id]"
         }
       },
       "dependsOn": [
@@ -353,11 +353,11 @@
     },
     "containerSubnetId": {
       "type": "string",
-      "value": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('existingVNETName'), parameters('containerSubnetName'))]"
+      "value": "[resourceInfo('containerSubnet').id]"
     },
     "storageSubnetId": {
       "type": "string",
-      "value": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('existingVNETName'), parameters('storageSubnetName'))]"
+      "value": "[resourceInfo('storageSubnet').id]"
     }
   }
 }
