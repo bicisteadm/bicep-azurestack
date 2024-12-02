@@ -268,7 +268,7 @@ Usage:
             var versionSplit = ThisAssembly.AssemblyInformationalVersion.Split('+');
 
             // <major>.<minor>.<patch> (<commmithash>)
-            return $"{versionSplit[0]} ({(versionSplit.Length > 1 ? versionSplit[1] : "custom")})";
+            return $"{versionSplit[0]}-azurestack ({(versionSplit.Length > 1 ? versionSplit[1] : "custom")})";
         }
 
         private static void WriteEmbeddedResource(TextWriter writer, string streamName)
